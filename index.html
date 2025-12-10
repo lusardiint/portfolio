@@ -8,6 +8,9 @@
 <!-- Fuente Telegraf -->
 <link href="https://cdn.jsdelivr.net/gh/philipbelesky/telegraf@master/fonts.css" rel="stylesheet">
 
+<!-- Media Chrome para reproductores -->
+<script type="module" src="https://cdn.jsdelivr.net/npm/media-chrome@3/+esm"></script>
+
 <style>
     * {
         margin: 0;
@@ -23,7 +26,7 @@
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        display: block; /* Ocultar hasta que se introduzca la contraseña */
+        display: block;
     }
 
     /* ===========================
@@ -157,8 +160,9 @@
     }
 
     .section-inner {
-        max-width: 100%;
+        max-width: 1200px;
         width: 100%;
+        margin: 0 auto;
     }
 
     /* BOTÓN CONTACTAR - SIN CUADRO, SOLO TEXTO */
@@ -279,7 +283,7 @@
         font-weight: 700;
     }
 
-    /* WORKS SECTION - AHORA PRIMERA SECCIÓN */
+    /* WORKS SECTION - CON REPRODUCTORES DE BEATS */
     .works-section {
         background: #000000;
         padding-top: 40px;
@@ -296,61 +300,124 @@
         letter-spacing: 1px;
     }
 
-    .tiktok-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-        margin-bottom: 40px;
-    }
-
-    .tiktok-container {
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 0;
-        padding: 15px;
-        transition: all .4s ease;
+    /* REPRODUCTOR DE BEATS */
+    .beats-container {
         width: 100%;
-        overflow: hidden;
+        background-color: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
         box-shadow: none;
     }
 
-    .tiktok-container:active {
-        transform: none;
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    /* Ajuste específico para iframes de TikTok */
-    .tiktok-embed {
-        position: relative;
-        width: 100% !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-        border-radius: 0;
-        overflow: hidden;
-    }
-
-    .tiktok-embed iframe {
-        width: 100% !important;
-        min-width: 100% !important;
-        max-width: 100% !important;
-        border-radius: 0;
-    }
-
-    .tiktok-description {
-        text-align: center;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* Header del reproductor */
+    .beats-header {
+        display: grid;
+        grid-template-columns: 300px 1fr 100px;
+        align-items: center;
+        padding: 10px 16px;
+        gap: 12px;
+        font-size: 0.75rem;
         color: #aaa;
-        font-size: 14px;
-        line-height: 1.6;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-transform: uppercase;
     }
 
-    /* ABOUT ME SECTION - AHORA SEGUNDA SECCIÓN */
+    /* Beat rows */
+    .beat-row {
+        display: grid;
+        grid-template-columns: 300px 1fr 100px;
+        align-items: center;
+        padding: 12px 16px;
+        gap: 12px;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background 0.2s;
+    }
+
+    .beat-row:hover {
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Player styles */
+    media-controller {
+        --media-background-color: transparent;
+        --media-control-background: transparent;
+        --media-control-hover-background: rgba(255,255,255,0.05);
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    media-control-bar {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+    }
+
+    /* Play button */
+    media-play-button {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    media-play-button:hover {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Time range */
+    media-time-range {
+        flex: 1;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        --media-range-bar-color: #fff;
+        --media-range-thumb-background: #fff;
+        --media-range-thumb-width: 6px;
+        --media-range-thumb-height: 12px;
+        --media-range-thumb-box-shadow: 0 0 0 2px #000;
+    }
+
+    /* Time & duration */
+    media-time-display, media-duration-display {
+        font-size: 0.7rem;
+        color: #aaa;
+        min-width: 35px;
+        text-align: center;
+        font-family: 'Telegraf', sans-serif;
+    }
+
+    /* Title & meta */
+    .beat-title {
+        font-weight: 600;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 14px;
+    }
+
+    .beat-meta {
+        font-size: 0.75rem;
+        color: #aaa;
+        text-align: right;
+        font-family: 'Telegraf', sans-serif;
+    }
+
+    /* ABOUT ME SECTION */
     .about-section {
-        background: linear-gradient(180deg, #000 0%, #000 100%);
+        background: #000000;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -367,7 +434,7 @@
         letter-spacing: 1px;
     }
 
-    /* FAQ SECTION - AHORA TERCERA SECCIÓN - SIN CAJAS */
+    /* FAQ SECTION - SIN CAJAS */
     .faq-section {
         background: #000;
         padding-top: 60px;
@@ -525,7 +592,7 @@
     }
 
     .contact-modal-content {
-        background: rgba(20, 20, 20, 0.98);
+        background: rgba(0, 0, 0, 0.95);
         border-radius: 0;
         padding: 30px;
         width: 90%;
@@ -675,7 +742,7 @@
         }
     }
 
-    /* Tablet y pantallas más grandes - CORREGIDO PARA SIN CAJAS */
+    /* Tablet y pantallas más grandes */
     @media (min-width: 768px) {
         .section {
             padding: 80px 40px;
@@ -704,14 +771,8 @@
             transform: none;
         }
         
-        .tiktok-grid {
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-        
-        .tiktok-container {
-            flex: 1;
-            min-width: 300px;
+        .beats-header, .beat-row {
+            grid-template-columns: 300px 1fr 100px;
         }
         
         .hero-nav {
@@ -720,7 +781,6 @@
             max-width: none;
         }
         
-        /* CORREGIDO: Sin padding, fondo o borde */
         .hero-nav a {
             padding: 0;
             background: transparent;
@@ -741,6 +801,27 @@
         }
     }
 
+    @media (max-width: 767px) {
+        .beats-header, .beat-row {
+            grid-template-columns: 1fr;
+            gap: 8px;
+            padding: 10px;
+        }
+        
+        .beats-header {
+            display: none;
+        }
+        
+        .beat-title {
+            font-size: 16px;
+        }
+        
+        .beat-meta {
+            text-align: left;
+            font-size: 14px;
+        }
+    }
+
     /* Desktop */
     @media (min-width: 1024px) {
         .section {
@@ -751,9 +832,8 @@
             gap: 60px;
         }
         
-        .tiktok-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        .beats-header, .beat-row {
+            grid-template-columns: 400px 1fr 100px;
         }
         
         .faq-section {
@@ -794,9 +874,6 @@
     }
 </style>
 
-<!-- Script de TikTok -->
-<script async src="https://www.tiktok.com/embed.js"></script>
-
 <!-- Iconos para el modal -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -807,13 +884,13 @@
 <!--         PANTALLA DE CONTRASEÑA           -->
 <!-- ======================================== -->
 <div class="password-screen" id="passwordScreen">
-    <h2 class="password-title">ACCESO RESTRINGIDO</h2>
+    <h2 class="password-title">ACCESO EXCLUSIVO</h2>
     <div class="password-container">
         <input type="password" class="password-input" id="passwordInput" placeholder="Introduce la contraseña" autocomplete="off">
         <div class="password-arrow">↲</div>
     </div>
     <div class="password-error" id="passwordError">Contraseña incorrecta</div>
-    <div class="password-hint">@lusardiint</div>
+    <div class="password-hint">@lusardiint <br> pista: habla conmigo</div>
 </div>
 
 <!-- ======================================== -->
@@ -880,40 +957,95 @@
 <section id="works" class="section works-section">
     <div class="section-inner">
         
-        <h2 class="section-title">Your Works</h2>
+        <h2 class="section-title">Algunos de mis trabajos</h2>
 
-        <div class="tiktok-grid">
-            <!-- TikTok 1 -->
-            <div class="tiktok-container">
-                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lusardiint/video/7544413807540571414" data-video-id="7544413807540571414">
-                    <section></section>
-                </blockquote>
-                <div class="tiktok-description">
-                    Beat con sample de salsa – estilo Myke Towers, groove latino y baterías trap
-                </div>
+        <div class="beats-container">
+            <div class="beats-header">
+                <div>Player (Calidad MP3 reducida/optimizada) Para version completa CONTACTAR</div>
+                <div>Descripción breve</div>
+                <div>BPM / Key</div>
             </div>
             
-            <!-- TikTok 2 -->
-            <div class="tiktok-container">
-                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lusardiint/video/7579315800587226390" data-video-id="7579315800587226390">
-                    <section></section>
-                </blockquote>
-                <div class="tiktok-description">
-                    Beat sin samples – diseño sonoro con sintetizador analógico
-                </div>
+            <!-- Beat 1 -->
+            <div class="beat-row">
+                <media-controller audio>
+                    <audio slot="media" src="Beat1.mp3"></audio>
+                    <media-control-bar>
+                        <media-play-button></media-play-button>
+                        <media-time-display></media-time-display>
+                        <media-time-range></media-time-range>
+                        <media-duration-display></media-duration-display>
+                    </media-control-bar>
+                </media-controller>
+                <div class="beat-title">Beat con sample unico de Music Box</div>
+                <div class="beat-meta">115 BPM | Em</div>
             </div>
             
-            <!-- TikTok 3 -->
-            <div class="tiktok-container">
-                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lusardiint/video/7548892809646886147" data-video-id="7548892809646886147">
-                    <section></section>
-                </blockquote>
-                <div class="tiktok-description">
-                    Beat soul sampleado – chop clásico con melodías originales por encima
-                </div>
+            <!-- Beat 2 -->
+            <div class="beat-row">
+                <media-controller audio>
+                    <audio slot="media" src="Beat2.mp3"></audio>
+                    <media-control-bar>
+                        <media-play-button></media-play-button>
+                        <media-time-display></media-time-display>
+                        <media-time-range></media-time-range>
+                        <media-duration-display></media-duration-display>
+                    </media-control-bar>
+                </media-controller>
+                <div class="beat-title">Beat con sonido analogico unico distorsionado</div>
+                <div class="beat-meta">126 BPM | F#m</div>
             </div>
+            
+            <!-- Beat 3 -->
+            <div class="beat-row">
+                <media-controller audio>
+                    <audio slot="media" src="Beat3.mp3"></audio>
+                    <media-control-bar>
+                        <media-play-button></media-play-button>
+                        <media-time-display></media-time-display>
+                        <media-time-range></media-time-range>
+                        <media-duration-display></media-duration-display>
+                    </media-control-bar>
+                </media-controller>
+                <div class="beat-title">Analog synth sample original</div>
+                <div class="beat-meta">126 BPM | G#m</div>
+            </div>
+            
+            <!-- Beat 4 -->
+            <div class="beat-row">
+                <media-controller audio>
+                    <audio slot="media" src="Beat4.wav"></audio>
+                    <media-control-bar>
+                        <media-play-button></media-play-button>
+                        <media-time-display></media-time-display>
+                        <media-time-range></media-time-range>
+                        <media-duration-display></media-duration-display>
+                    </media-control-bar>
+                </media-controller>
+                <div class="beat-title">Soul Sample trap beat</div>
+                <div class="beat-meta">150 BPM | Gm</div>
+            </div>
+
+            <!-- Beat 5 -->
+            <div class="beat-row">
+                <media-controller audio>
+                    <audio slot="media" src="Beat5.mp3"></audio>
+                    <media-control-bar>
+                        <media-play-button></media-play-button>
+                        <media-time-display></media-time-display>
+                        <media-time-range></media-time-range>
+                        <media-duration-display></media-duration-display>
+                    </media-control-bar>
+                </media-controller>
+                <div class="beat-title">Analog pop chords con drums percusivos</div>
+                <div class="beat-meta">102 BPM | F#m</div>
+            </div>
+
         </div>
-
+            <div class="text">
+<br>
+                Cada uno de los beats es totalmente distinto, me enfoco en la <strong>versatilidad</strong> y proyeccion de emociones al oyente con melodias simples pero con mucha expresión
+            </div>
     </div>
 </section>
 
@@ -922,32 +1054,29 @@
 <!-- ======================================== -->
 <section id="about" class="section about-section">
     <div class="section-inner">
-        
-<div class="intro-content">
-    <h2 class="about-title">About Me</h2>
+        <div class="intro-content">
+            <h2 class="about-title">About Me</h2>
 
-    <div class="text">
-        Soy <strong>Lusardi</strong>, productor de Barcelona.
-    </div>
+            <div class="text">
+                Soy <strong>Lusardi</strong>, productor de Barcelona.
+            </div>
 
-    <div class="text">
-        Mi rol es simple: no hago música genérica. Me enfoco en crear identidades sonoras — textura, groove, dirección y carácter — para artistas que buscan un sonido propio.
-    </div>
+            <div class="text">
+                Mi rol es simple: no hago música genérica. Me enfoco en crear identidades sonoras — textura, groove, dirección y carácter — para artistas que buscan un sonido propio.
+            </div>
 
-    <div class="text">
-        Desde pequeño estudié violín, y esa base acústica siempre ha estado presente en mi forma de producir. Hoy combino ese background con el uso de instrumentos analógicos como el Model D, guitarras, violines y elementos acústicos cuando un track lo pide.
-    </div>
+            <div class="text">
+                Desde pequeño estudié violín, y esa base acústica siempre ha estado presente en mi forma de producir. Hoy combino ese background con el uso de instrumentos analógicos como el Model D, guitarras, violines y elementos acústicos cuando un track lo pide.
+            </div>
 
-    <div class="text">
-        Trabajo con samples, grabaciones originales y diseño sonoro desde cero. Me gusta mezclar lo digital y lo analógico para conseguir un sonido que respire, que tenga vida y que destaque en un mercado saturado.
-    </div>
+            <div class="text">
+                Trabajo con samples, grabaciones originales y diseño sonoro desde cero. Me gusta mezclar lo digital y lo analógico para conseguir un sonido que respire, que tenga vida y que destaque en un mercado saturado.
+            </div>
 
-    <div class="text">
-        No creo la parte visual, pero puedo actuar como director creativo para guiar el proceso y asegurar coherencia entre sonido, estética y narrativa ya que tengo un gran interes en los proyectos tales como los concept album/ep.
-    </div>
-</div>
-
-
+            <div class="text">
+                No creo la parte visual, pero puedo actuar como director creativo para guiar el proceso y asegurar coherencia entre sonido, estética y narrativa ya que tengo un gran interes en los proyectos tales como los concept album/ep.
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1047,7 +1176,7 @@ const passwordScreen = document.getElementById('passwordScreen');
 const passwordInput = document.getElementById('passwordInput');
 const passwordError = document.getElementById('passwordError');
 const body = document.body;
-const correctPassword = "VISION2026";
+const correctPassword = "2026";
 
 // Función para verificar la contraseña
 function checkPassword() {
@@ -1175,17 +1304,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Alternar el item actual
             item.classList.toggle('active');
         });
-    });
-    
-    // Recargar TikTok embeds en redimensionamiento
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(function() {
-            if (typeof TikTokEmbed !== 'undefined') {
-                TikTokEmbed.load();
-            }
-        }, 250);
     });
     
     // Smooth scroll para enlaces del menú
