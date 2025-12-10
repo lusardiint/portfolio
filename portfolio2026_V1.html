@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Lusardi – Portfolio</title>
+
+<!-- Fuente Telegraf -->
+<link href="https://cdn.jsdelivr.net/gh/philipbelesky/telegraf@master/fonts.css" rel="stylesheet">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        background: #000;
+        color: #fff;
+        font-family: 'Telegraf', -apple-system, BlinkMacSystemFont, sans-serif;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        display: block; /* Ocultar hasta que se introduzca la contraseña */
+    }
+
+    /* ===========================
+          PANTALLA DE CONTRASEÑA
+       =========================== */
+    .password-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        padding: 20px;
+    }
+
+    .password-title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 40px;
+        text-align: center;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .password-container {
+        width: 100%;
+        max-width: 400px;
+        position: relative;
+    }
+
+    .password-input {
+        width: 100%;
+        padding: 15px 50px 15px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+        font-size: 16px;
+        font-family: 'Telegraf', sans-serif;
+        border-radius: 0;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .password-input:focus {
+        border-color: rgba(255, 255, 255, 0.6);
+    }
+
+    .password-arrow {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        pointer-events: none;
+    }
+
+    .password-error {
+        color: #ff4444;
+        font-size: 14px;
+        margin-top: 10px;
+        text-align: center;
+        min-height: 20px;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .password-error.show {
+        opacity: 1;
+    }
+
+    .password-hint {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 12px;
+        margin-top: 20px;
+        text-align: center;
+        font-style: italic;
+    }
+
+    /* ===========================
+          HERO SECTION
+       =========================== */
+    .hero {
+        height: 100vh;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+        gap: 40px;
+    }
+
+    .hero-title {
+        font-size: clamp(60px, 20vw, 120px);
+        font-weight: 900;
+        background-image: url('about_me.png');
+        background-size: cover;
+        background-position: center;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        z-index: 2;
+        position: relative;
+        will-change: background-position;
+        text-align: center;
+        line-height: 1;
+        margin-top: 40px;
+    }
+
+    /* ===========================
+          CONTENT SECTIONS
+       =========================== */
+    .section {
+        min-height: auto;
+        padding: 60px 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-inner {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    /* BOTÓN CONTACTAR - SIN CUADRO, SOLO TEXTO */
+    .contact-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: none;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        background: transparent;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        white-space: nowrap;
+        cursor: pointer;
+        box-shadow: none;
+        backdrop-filter: none;
+        transition: all .3s ease;
+    }
+
+    /* Subrayado al pasar el ratón */
+    .contact-btn::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #fff;
+        transition: width .3s ease;
+    }
+
+    .contact-btn:hover::after,
+    .contact-btn:focus::after {
+        width: 100%;
+    }
+
+    /* HERO NAV - SOLO TEXTO */
+    .hero-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        z-index: 2;
+        margin-top: 20px;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .hero-nav a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        position: relative;
+        padding: 0;
+        background: transparent;
+        border: none;
+        text-align: center;
+        transition: color .3s;
+    }
+
+    /* Subrayado al pasar el ratón */
+    .hero-nav a::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #fff;
+        transition: width .3s ease;
+    }
+
+    .hero-nav a:hover::after,
+    .hero-nav a:focus::after {
+        width: 100%;
+    }
+
+    /* Para dispositivos móviles - mantener subrayado al tocar */
+    .hero-nav a:active {
+        color: #fff;
+        background: transparent;
+        transform: none;
+    }
+
+    .contact-btn:active {
+        background: transparent;
+        transform: none;
+    }
+
+    /* Versión móvil - subrayado al tocar también */
+    @media (max-width: 767px) {
+        .hero-nav a:active::after {
+            width: 100%;
+        }
+        
+        .contact-btn:active::after {
+            width: 100%;
+        }
+    }
+
+    .text {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #ccc;
+        margin-bottom: 25px;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    .text strong {
+        color: #fff;
+        font-weight: 700;
+    }
+
+    /* WORKS SECTION - AHORA PRIMERA SECCIÓN */
+    .works-section {
+        background: #000000;
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .section-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 40px;
+        color: #fff;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .tiktok-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    .tiktok-container {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 0;
+        padding: 15px;
+        transition: all .4s ease;
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: none;
+    }
+
+    .tiktok-container:active {
+        transform: none;
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Ajuste específico para iframes de TikTok */
+    .tiktok-embed {
+        position: relative;
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        border-radius: 0;
+        overflow: hidden;
+    }
+
+    .tiktok-embed iframe {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        border-radius: 0;
+    }
+
+    .tiktok-description {
+        text-align: center;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #aaa;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    /* ABOUT ME SECTION - AHORA SEGUNDA SECCIÓN */
+    .about-section {
+        background: linear-gradient(180deg, #000 0%, #000 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .about-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 30px;
+        color: #fff;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* FAQ SECTION - AHORA TERCERA SECCIÓN - SIN CAJAS */
+    .faq-section {
+        background: #000;
+        padding-top: 60px;
+        padding-bottom: 100px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 50px;
+        color: #fff;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        position: relative;
+    }
+
+    .faq-title::after {
+        content: '';
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 1px;
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* FAQ ITEMS - COMPLETAMENTE TRANSPARENTES, SIN CAJAS */
+    .faq-item {
+        background: transparent;
+        border: none;
+        border-radius: 0;
+        margin-bottom: 25px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+    }
+
+    .faq-item:hover {
+        background: transparent;
+        border-color: transparent;
+    }
+
+    .faq-item.active {
+        background: transparent;
+        border-color: transparent;
+    }
+
+    .faq-question {
+        padding: 15px 40px 15px 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        transition: color 0.3s;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .faq-question:hover {
+        color: #f0f0f0;
+    }
+
+    .faq-question::before {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M6 8L10 12L14 8' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: transform 0.4s ease;
+    }
+
+    .faq-item.active .faq-question::before {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    .faq-answer {
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.5s ease;
+        color: #aaa;
+        line-height: 1.7;
+        font-size: 16px;
+        background: transparent;
+    }
+
+    .faq-item.active .faq-answer {
+        padding: 20px 0 0 0;
+        max-height: 500px;
+    }
+
+    .faq-answer strong {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .faq-footer {
+        text-align: center;
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        color: #666;
+        font-size: 14px;
+    }
+
+    .faq-footer a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s;
+        font-weight: 600;
+    }
+
+    .faq-footer a:hover {
+        color: #ccc;
+        text-decoration: underline;
+    }
+
+    /* ===========================
+          MODAL DE CONTACTO
+       =========================== */
+    .contact-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: none;
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .contact-modal.active {
+        display: flex;
+        opacity: 1;
+    }
+
+    .contact-modal-content {
+        background: rgba(20, 20, 20, 0.98);
+        border-radius: 0;
+        padding: 30px;
+        width: 90%;
+        max-width: 400px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: none;
+        transform: translateY(0);
+        transition: none;
+    }
+
+    .contact-modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .contact-modal-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .contact-close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 5px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+        transition: all 0.3s;
+    }
+
+    .contact-close-btn:hover,
+    .contact-close-btn:active {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-options {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .contact-option {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .contact-option-label {
+        font-size: 14px;
+        color: #aaa;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .contact-link {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 18px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+        color: #fff;
+        transition: all 0.3s ease;
+        box-shadow: none;
+    }
+
+    .contact-link:hover,
+    .contact-link:active {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.3);
+        transform: none;
+    }
+
+    .contact-icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+    }
+
+    .contact-info {
+        flex: 1;
+    }
+
+    .contact-type {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .contact-detail {
+        font-size: 14px;
+        color: #aaa;
+    }
+
+    .contact-purpose {
+        font-size: 11px;
+        color: #666;
+        font-style: italic;
+        margin-top: 2px;
+    }
+
+    /* Mejoras para dispositivos muy pequeños */
+    @media (max-width: 360px) {
+        .hero-title {
+            font-size: clamp(50px, 22vw, 100px);
+        }
+        
+        .contact-btn {
+            padding: 10px 18px;
+            font-size: 13px;
+            right: 15px;
+            top: 15px;
+        }
+        
+        .contact-modal-content {
+            padding: 20px;
+        }
+        
+        .contact-link {
+            padding: 15px;
+        }
+        
+        .faq-question {
+            padding: 15px 30px 15px 0;
+            font-size: 16px;
+        }
+        
+        .faq-answer {
+            font-size: 15px;
+        }
+    }
+
+    /* Tablet y pantallas más grandes - CORREGIDO PARA SIN CAJAS */
+    @media (min-width: 768px) {
+        .section {
+            padding: 80px 40px;
+        }
+        
+        .hero-title {
+            font-size: clamp(80px, 15vw, 180px);
+        }
+        
+        .about-title, .section-title, .faq-title {
+            font-size: 42px;
+        }
+        
+        .text {
+            font-size: 18px;
+            text-align: left;
+            padding: 0;
+        }
+        
+        .about-title, .section-title, .faq-title {
+            text-align: left;
+        }
+        
+        .faq-title::after {
+            left: 0;
+            transform: none;
+        }
+        
+        .tiktok-grid {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        
+        .tiktok-container {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .hero-nav {
+            flex-direction: row;
+            gap: 30px;
+            max-width: none;
+        }
+        
+        /* CORREGIDO: Sin padding, fondo o borde */
+        .hero-nav a {
+            padding: 0;
+            background: transparent;
+            border: none;
+        }
+        
+        .faq-question {
+            font-size: 20px;
+        }
+        
+        .faq-answer {
+            font-size: 17px;
+        }
+
+        .about-section {
+            flex-direction: row;
+            gap: 60px;
+        }
+    }
+
+    /* Desktop */
+    @media (min-width: 1024px) {
+        .section {
+            padding: 120px 80px;
+        }
+        
+        .hero {
+            gap: 60px;
+        }
+        
+        .tiktok-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+        
+        .faq-section {
+            padding: 100px 80px;
+        }
+        
+        .faq-container {
+            max-width: 900px;
+        }
+
+        .about-section {
+            gap: 80px;
+        }
+    }
+
+    /* Mejor scroll en móvil */
+    html {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Prevenir zoom en inputs en iOS */
+    input, textarea, select {
+        font-size: 16px;
+    }
+
+    /* Mejorar rendimiento en móvil */
+    .hero-title {
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    /* Menú móvil optimizado para toques */
+    .hero-nav a, .contact-btn, .faq-question {
+        cursor: pointer;
+        user-select: none;
+    }
+</style>
+
+<!-- Script de TikTok -->
+<script async src="https://www.tiktok.com/embed.js"></script>
+
+<!-- Iconos para el modal -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+<!-- ======================================== -->
+<!--         PANTALLA DE CONTRASEÑA           -->
+<!-- ======================================== -->
+<div class="password-screen" id="passwordScreen">
+    <h2 class="password-title">ACCESO RESTRINGIDO</h2>
+    <div class="password-container">
+        <input type="password" class="password-input" id="passwordInput" placeholder="Introduce la contraseña" autocomplete="off">
+        <div class="password-arrow">↲</div>
+    </div>
+    <div class="password-error" id="passwordError">Contraseña incorrecta</div>
+    <div class="password-hint">@lusardiint</div>
+</div>
+
+<!-- ======================================== -->
+<!--              HERO — LUSARDI              -->
+<!-- ======================================== -->
+<div class="hero">
+    <h1 class="hero-title">Lusardi</h1>
+    
+    <nav class="hero-nav">
+        <a href="#works">Recent Works</a>
+        <a href="#about">About Me</a>
+        <a href="#faq">FAQ</a>
+    </nav>
+</div>
+
+<!-- BOTÓN CONTACTAR FIJO -->
+<button class="contact-btn">Contactar</button>
+
+<!-- ======================================== -->
+<!--              MODAL DE CONTACTO           -->
+<!-- ======================================== -->
+<div class="contact-modal" id="contactModal">
+    <div class="contact-modal-content">
+        <div class="contact-modal-header">
+            <h2 class="contact-modal-title">Contacto</h2>
+            <button class="contact-close-btn" id="closeContactModal">&times;</button>
+        </div>
+        
+        <div class="contact-options">
+            <div class="contact-option">
+                <div class="contact-option-label">Email (Legal)</div>
+                <a href="mailto:valentumlus@gmail.com" class="contact-link">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-type">Email Legal</div>
+                        <div class="contact-detail">valentumlus@gmail.com</div>
+                        <div class="contact-purpose">Para asuntos legales y formales</div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="contact-option">
+                <div class="contact-option-label">Instagram (Buy/Collab)</div>
+                <a href="https://instagram.com/valenntluss" target="_blank" class="contact-link">
+                    <div class="contact-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-type">Instagram</div>
+                        <div class="contact-detail">@valenntluss</div>
+                        <div class="contact-purpose">Para compras, colaboraciones y contacto directo</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======================================== -->
+<!--         YOUR WORKS SECTION (1)           -->
+<!-- ======================================== -->
+<section id="works" class="section works-section">
+    <div class="section-inner">
+        
+        <h2 class="section-title">Your Works</h2>
+
+        <div class="tiktok-grid">
+            <!-- TikTok 1 -->
+            <div class="tiktok-container">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lusardiint/video/7544413807540571414" data-video-id="7544413807540571414">
+                    <section></section>
+                </blockquote>
+                <div class="tiktok-description">
+                    Beat con sample de salsa – estilo Myke Towers, groove latino y baterías trap
+                </div>
+            </div>
+            
+            <!-- TikTok 2 -->
+            <div class="tiktok-container">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lusardiint/video/7579315800587226390" data-video-id="7579315800587226390">
+                    <section></section>
+                </blockquote>
+                <div class="tiktok-description">
+                    Beat sin samples – diseño sonoro con sintetizador analógico
+                </div>
+            </div>
+            
+            <!-- TikTok 3 -->
+            <div class="tiktok-container">
+                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@lusardiint/video/7548892809646886147" data-video-id="7548892809646886147">
+                    <section></section>
+                </blockquote>
+                <div class="tiktok-description">
+                    Beat soul sampleado – chop clásico con melodías originales por encima
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!--            ABOUT ME SECTION (2)          -->
+<!-- ======================================== -->
+<section id="about" class="section about-section">
+    <div class="section-inner">
+        
+<div class="intro-content">
+    <h2 class="about-title">About Me</h2>
+
+    <div class="text">
+        Soy <strong>Lusardi</strong>, productor de Barcelona.
+    </div>
+
+    <div class="text">
+        Mi rol es simple: no hago música genérica. Me enfoco en crear identidades sonoras — textura, groove, dirección y carácter — para artistas que buscan un sonido propio.
+    </div>
+
+    <div class="text">
+        Desde pequeño estudié violín, y esa base acústica siempre ha estado presente en mi forma de producir. Hoy combino ese background con el uso de instrumentos analógicos como el Model D, guitarras, violines y elementos acústicos cuando un track lo pide.
+    </div>
+
+    <div class="text">
+        Trabajo con samples, grabaciones originales y diseño sonoro desde cero. Me gusta mezclar lo digital y lo analógico para conseguir un sonido que respire, que tenga vida y que destaque en un mercado saturado.
+    </div>
+
+    <div class="text">
+        No creo la parte visual, pero puedo actuar como director creativo para guiar el proceso y asegurar coherencia entre sonido, estética y narrativa ya que tengo un gran interes en los proyectos tales como los concept album/ep.
+    </div>
+</div>
+
+
+    </div>
+</section>
+
+<!-- ======================================== -->
+<!--               FAQ SECTION (3)            -->
+<!-- ======================================== -->
+<section id="faq" class="section faq-section">
+    <div class="section-inner">
+        <div class="faq-container">
+            <h2 class="faq-title">FAQ</h2>
+            
+            <div class="faq-list">
+                <!-- Pregunta 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Qué tipo de proyectos tomas?
+                    </div>
+                    <div class="faq-answer">
+                        Trabajo con artistas que buscan desarrollar un sonido propio. No produzco beats al azar; me enfoque en proyectos con intención, ya sea un single importante, un EP o una idea conceptual. Priorizo colaboraciones donde pueda aportar en identidad sonora y dirección creativa.
+                    </div>
+                </div>
+                
+                <!-- Pregunta 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Cuál es tu proceso de trabajo?
+                    </div>
+                    <div class="faq-answer">
+                        <strong>Fase 1:</strong> Concepto – definimos la vibra, referencias y dirección.<br>
+                        <strong>Fase 2:</strong> Sonido – creación de paleta sonora, selección de samples y texturas.<br>
+                        <strong>Fase 3:</strong> Producción – desarrollo del beat, estructura y arreglos.<br>
+                        <strong>Fase 4:</strong> Dirección creativa – guía estética para que sonido e imagen encajen (sin crear visuales directamente).
+                    </div>
+                </div>
+                
+                <!-- Pregunta 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Trabajas con artistas de otros géneros?
+                    </div>
+                    <div class="faq-answer">
+                        Mi especialidad es trap, hip-hop 2000's, retro, new jack swing y estilos más funky, pero también tengo experiencia en tech house y fusiones electrónicas. Lo importante es la visión del artista.
+                    </div>
+                </div>
+                
+                <!-- Pregunta 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Cuáles son tus tarifas?
+                    </div>
+                    <div class="faq-answer">
+                        Cada proyecto tiene un presupuesto personalizado según su complejidad, número de pistas y dirección creativa necesaria. Desde beats individuales hasta construcción completa de identidad sonora. Para presupuestos: Instagram para colaboraciones y email para propuestas formales.
+                    </div>
+                </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Qué incluye tu 'estética sonora'?
+                    </div>
+                    <div class="faq-answer">
+                        Incluye:<br>
+                        • Identidad sonora coherente<br>
+                        • Paleta de sonidos personalizada<br>
+                        • Selección de samples y diseño de texturas<br>
+                        • Dirección creativa para guiar la estética visual del proyecto<br>
+                        • Storytelling musical y coherencia conceptual
+                    </div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        ¿Cómo iniciar una colaboración?
+                    </div>
+                    <div class="faq-answer">
+                        <strong>1.</strong> Escríbeme por Instagram (@valenntluss) con tu idea.<br>
+                        <strong>2.</strong> Si la visión encaja, hacemos una breve llamada.<br>
+                        <strong>3.</strong> Presento una propuesta conceptual inicial.<br>
+                        <strong>4.</strong> Acordamos alcance, timeline y presupuesto.<br>
+                        <strong>Importante:</strong> Priorizo proyectos con visión clara y ganas de construir un sonido propio.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-footer">
+                ¿Tienes otra pregunta? <a href="#" class="contact-trigger">Contáctame directamente</a>
+                <br>lusardi© 2025
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// SISTEMA DE CONTRASEÑA
+const passwordScreen = document.getElementById('passwordScreen');
+const passwordInput = document.getElementById('passwordInput');
+const passwordError = document.getElementById('passwordError');
+const body = document.body;
+const correctPassword = "VISION2026";
+
+// Función para verificar la contraseña
+function checkPassword() {
+    const enteredPassword = passwordInput.value.trim();
+    
+    if (enteredPassword === correctPassword) {
+        // Contraseña correcta
+        passwordScreen.style.display = 'none';
+        body.style.display = 'block';
+        passwordError.classList.remove('show');
+        passwordInput.value = '';
+        
+        // Iniciar el parallax después de cargar
+        initParallax();
+    } else {
+        // Contraseña incorrecta
+        passwordError.classList.add('show');
+        passwordInput.value = '';
+        passwordInput.focus();
+    }
+}
+
+// Evento para enviar con Enter
+passwordInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        checkPassword();
+    }
+});
+
+// Enfocar automáticamente en el input al cargar
+window.addEventListener('load', function() {
+    passwordInput.focus();
+});
+
+// PARALLAX SOLO PARA EL TÍTULO LUSARDI
+function initParallax() {
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const heroTitle = document.querySelector('.hero-title');
+        
+        if (heroTitle) {
+            const offset = scrolled * 1.5;
+            heroTitle.style.backgroundPosition = `center calc(50% + ${offset}px)`;
+        }
+        
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    
+    // Inicializar posición
+    updateParallax();
+}
+
+// MODAL DE CONTACTO
+const contactBtn = document.querySelector('.contact-btn');
+const contactModal = document.getElementById('contactModal');
+const closeContactModal = document.getElementById('closeContactModal');
+const contactTrigger = document.querySelector('.contact-trigger');
+
+// Abrir modal
+function openContactModal() {
+    contactModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// Cerrar modal
+function closeContactModalFunc() {
+    contactModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// Event listeners para contacto
+contactBtn.addEventListener('click', openContactModal);
+if (contactTrigger) {
+    contactTrigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        openContactModal();
+    });
+}
+
+closeContactModal.addEventListener('click', closeContactModalFunc);
+
+// Cerrar modal al hacer clic fuera
+contactModal.addEventListener('click', (e) => {
+    if (e.target === contactModal) {
+        closeContactModalFunc();
+    }
+});
+
+// Cerrar modal con tecla Escape
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && contactModal.classList.contains('active')) {
+        closeContactModalFunc();
+    }
+});
+
+// FAQ ACCORDION
+document.addEventListener('DOMContentLoaded', () => {
+    // Solo ejecutar esto después de que se haya introducido la contraseña
+    if (body.style.display !== 'block') return;
+    
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            // Cerrar otros items abiertos
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                }
+            });
+            
+            // Alternar el item actual
+            item.classList.toggle('active');
+        });
+    });
+    
+    // Recargar TikTok embeds en redimensionamiento
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            if (typeof TikTokEmbed !== 'undefined') {
+                TikTokEmbed.load();
+            }
+        }, 250);
+    });
+    
+    // Smooth scroll para enlaces del menú
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+
+// Inicializar el accordion cuando se muestre el cuerpo
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.attributeName === 'style' && body.style.display === 'block') {
+            // El cuerpo se ha mostrado, inicializar FAQ
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Cerrar otros items abiertos
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Alternar el item actual
+                    item.classList.toggle('active');
+                });
+            });
+            
+            observer.disconnect();
+        }
+    });
+});
+
+observer.observe(body, { attributes: true });
+
+// Mejorar performance en dispositivos táctiles
+document.addEventListener('touchmove', function(e) {
+    // Permitir scroll normal
+}, { passive: true });
+
+// Evitar rebote en iOS
+document.addEventListener('touchstart', function(e) {
+    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+        e.target.style.webkitTapHighlightColor = 'rgba(255, 255, 255, 0.1)';
+    }
+}, { passive: true });
+</script>
+
+</body>
+</html>
