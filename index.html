@@ -27,7 +27,7 @@
         overflow-x: hidden;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        display: block;
+        /* display: block !important; */
     }
 
     /* ===========================
@@ -146,7 +146,7 @@
     }
 
     .hero-title {
-        font-size: clamp(60px, 20vw, 120px);
+font-size: clamp(60px, 15vw, 100px) !important;
         font-weight: 900;
         background-image: url('carpet.png');
         background-size: cover;
@@ -222,31 +222,35 @@
         width: 100%;
     }
 
-    /* HERO NAV - SOLO TEXTO */
+  /* HERO NAV - IGUAL QUE ANTES PERO ARRIBA IZQ */
     .hero-nav {
+        position: absolute;      /* Para que sea global y no se mueva */
+        top: 20px;            /* Lo bajamos un poco para que no pise el INDEX 00 */
+        left: 10px;           /* Pegado a la izquierda */
         display: flex;
         flex-direction: column;
         gap: 20px;
-        z-index: 2;
-        margin-top: 20px;
+        z-index: 1000;
         width: 100%;
-        max-width: 280px;
+        max-width: 280px;     /* Mantenemos tu ancho original */
+        margin-top: 0;        /* Reset del margen anterior */
     }
 
     .hero-nav a {
-        color: #fff;
+        color: #fff;          /* Volvemos al blanco puro que tenías */
         text-decoration: none;
-        font-size: 16px;
+        font-size: 14px;      /* Tu tamaño original */
         font-weight: 500;
         position: relative;
         padding: 0;
         background: transparent;
         border: none;
-        text-align: center;
+        text-align: left;     /* Alineado a la izquierda para que el subrayado nazca ahí */
         transition: color .3s;
+        width: fit-content;   /* Importante para que el subrayado solo ocupe el texto */
     }
 
-    /* Subrayado al pasar el ratón */
+    /* Tu subrayado exacto */
     .hero-nav a::after {
         content: '';
         position: absolute;
@@ -263,11 +267,19 @@
         width: 100%;
     }
 
-    /* Para dispositivos móviles - mantener subrayado al tocar */
+    /* Tu ajuste para móviles original */
     .hero-nav a:active {
         color: #fff;
         background: transparent;
         transform: none;
+    }
+
+    /* Media query para que en móvil no se pegue tanto al borde */
+    @media (max-width: 768px) {
+        .hero-nav {
+            top: 10px;
+            left: 20px;
+        }
     }
 
     .contact-btn:active {
@@ -305,11 +317,16 @@
         background: #000000;
         padding-top: 40px;
         padding-bottom: 40px;
-background: #000000;
+	background: #000000;
     /* LÍNEA DIVISORIA SUPERIOR */
     border-top: 1px solid rgba(255, 255, 255, 0.05); 
     padding-top: 80px; /* Aumentado de 40px para que respire */
     padding-bottom: 80px;
+/* bg */
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('bg_works.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important; /* Mantiene la foto quieta mientras el texto sube */
     }
 
     .section-title {
@@ -323,168 +340,164 @@ background: #000000;
     }
 
     /* REPRODUCTOR DE BEATS */
-    .beats-container {
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        overflow: hidden;
-        box-shadow: none;
-    }
+/* --- NUEVA ESTÉTICA EDITORIAL --- */
+/* --- NUEVA ESTÉTICA DE AUDIO EDITORIAL ULTRA-MINIMAL --- */
+.track-item {
+    display: grid;
+    /* Añadimos 60px después del número para la portada */
+    grid-template-columns: 40px 60px 1fr 120px 80px; 
+    align-items: center;
+    padding: 15px 10px; /* Reducido un poco para que no sea gigante con la foto */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+    color: rgba(255, 255, 255, 0.5);
+    position: relative;
+    border-radius: 7px;
+}
 
-    /* Header del reproductor */
-    .beats-header {
-        display: grid;
-        grid-template-columns: 300px 1fr 100px;
-        align-items: center;
-        padding: 10px 16px;
-        gap: 12px;
-        font-size: 0.75rem;
-        color: #aaa;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        text-transform: uppercase;
-    }
+/* Estilo para la cajita de la portada */
+.track-cover {
+    width: 45px;
+    height: 45px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #111;
+}
 
-    /* Beat rows */
-    .beat-row {
-        display: grid;
-        grid-template-columns: 300px 1fr 100px;
-        align-items: center;
-        padding: 12px 16px;
-        gap: 12px;
-        font-size: 0.9rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        transition: background 0.2s;
-    }
+.track-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(40%);
+    transition: all 0.5s ease;
+}
 
-    .beat-row:hover {
-        background: rgba(255, 255, 255, 0.02);
-    }
 
-    /* Player styles */
-    media-controller {
-        --media-background-color: transparent;
-        --media-control-background: transparent;
-        --media-control-hover-background: rgba(255,255,255,0.05);
-        width: 100%;
-        display: flex;
-        justify-content: flex-start;
-    }
+.track-item:hover .track-cover img,
+.track-item.active .track-cover img {
+    filter: grayscale(10%);
+    transform: scale(1.1);
+}
 
-    media-control-bar {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        width: 100%;
-    }
+/* Ajuste para que el número se vea centrado con la foto */
+.track-number {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.7;
+}
 
-    /* Play button */
-    media-play-button {
-        width: 28px;
-        height: 28px;
-        min-width: 28px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 12px;
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+/* El botón de texto PLAY/PAUSE */
+.track-status {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: right;
+    color: #fff;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 0.05s ease;
+}
 
-    media-play-button:hover {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: rgba(255, 255, 255, 0.3);
-    }
+/* Mostrar el estado en hover o si está activo */
+.track-item:hover .track-status,
+.track-item.active .track-status {
+    opacity: 1;
+}
 
-    /* Time range */
-    media-time-range {
-        flex: 1;
-        height: 3px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        --media-range-bar-color: #fff;
-        --media-range-thumb-background: #fff;
-        --media-range-thumb-width: 6px;
-        --media-range-thumb-height: 12px;
-        --media-range-thumb-box-shadow: 0 0 0 2px #000;
-    }
+/* Estilo para cuando está sonando (color de acento opcional) */
+.track-item.playing .track-status {
+    color: #fff; /* O cámbialo a tu rojo #ececec si quieres */
+}
 
-    /* Time & duration */
-    media-time-display, media-duration-display {
-        font-size: 0.7rem;
-        color: #aaa;
-        min-width: 35px;
-        text-align: center;
-        font-family: 'Telegraf', sans-serif;
-    }
+.track-number { font-size: 11px; font-weight: 300; letter-spacing: 2px; }
+.track-name { font-size: 18px; text-transform: uppercase; letter-spacing: 2px; }
+.track-meta { font-size: 12px; text-align: right; opacity: 0.6; }
 
-    /* Title & meta */
-    .beat-title {
-        font-weight: 600;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-size: 14px;
-    }
+/* --- PLAYER GLOBAL --- */
+.global-player {
+    position: fixed;
+    bottom: -150px;
+    left: 0;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px 40px;
+    z-index: 10000;
+    transition: bottom 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
 
-    .beat-meta {
-        font-size: 0.75rem;
-        color: #aaa;
-        text-align: right;
-        font-family: 'Telegraf', sans-serif;
-    }
+.global-player.active { bottom: 0; }
 
-    /* ABOUT ME SECTION */
-/* Contenedor principal de la sección About */
+.player-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 280px 1fr 40px;
+    align-items: center;
+    gap: 30px;
+}
+
+
+
+.np-label { font-size: 9px; color: #fc0303; letter-spacing: 3px; display: block; margin-bottom: 5px; }
+.np-title { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+media-controller { width: 100%; background: transparent; }
+media-control-bar { width: 100%; display: flex; align-items: center; gap: 20px; background: transparent !important; }
+media-time-range { 
+    flex: 1; 
+    --media-range-track-height: 1px; 
+    --media-range-bar-color: #fff;
+    --media-range-track-background: rgba(255,255,255,0.1);
+}
+media-play-button { width: 30px; --media-control-background: transparent; }
+.close-p { background: none; border: none; color: #fff; font-size: 25px; cursor: pointer; opacity: 0.3; }
+
+
+
+    /* ===========================
+      ABOUT ME SECTION (CORREGIDA)
+   =========================== */
+#about {
+    width: 100%;
+    position: relative;
+    padding: 100px 0; /* Padding arriba/abajo, 0 a los lados para el BG */
+    /* AQUÍ VA TU CONFIGURACIÓN DE FONDO ACTUAL */
+    background-image: url('tu-bg-about.png'); /* Asegúrate de que el nombre sea correcto */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Opcional: efecto parallax */
+}
+
+/* Este es el contenedor que unifica el margen con Works */
+.about-wrapper {
+    width: 100%;
+    max-width: 1400px; /* Mismo ancho máximo que Works */
+    margin: 0 auto;
+    padding: 0 5%;    /* Mismo padding lateral (5%) que Works */
+    position: relative;
+}
+
 .about-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Por defecto una columna (móvil) */
+    grid-template-columns: 1fr; /* Móvil */
     gap: 40px;
     align-items: center;
 }
 
-.about-image-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.about-img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    object-fit: cover;
-    /* BORDES REDONDEADOS */
-    border-radius: 50px;
-    /* OPCIONAL: Un borde muy sutil para dar profundidad */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    /* OPCIONAL: Sombra suave para que no se pierda en el negro */
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0);
-    filter: grayscale(100%); /* Vuelve al color al pasar el ratón */
-
-transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
-                filter 0.8s ease, 
-                box-shadow 0.6s ease;
-}
-
-.about-img:hover {
-    border-radius: 50px;
-    filter: grayscale(0%); /* Vuelve al color al pasar el ratón */
-    box-shadow: 0 1px 30px rgba(200, 200, 255, 0.07)
-}
-
-/* Media Query para Escritorio (Desktop) */
 @media (min-width: 1024px) {
     .about-grid {
-        grid-template-columns: 1fr 1.2fr; /* Dos columnas: imagen e información */
+        grid-template-columns: 0.8fr 1.2fr; /* Foto más estrecha, texto más ancho */
         gap: 80px;
     }
 
     .about-image-container {
-        justify-content: flex-end; /* Alinea la imagen a la derecha de su columna */
+        display: flex;
+        justify-content: flex-start; /* Pega la foto a la izquierda de su columna */
     }
 
     .about-content {
@@ -492,15 +505,42 @@ transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
     }
 }
 
-    .about-title {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 30px;
-        color: #fff;
-        text-align: center;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+.about-img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    object-fit: cover;
+    /* VOLVEMOS A LOS BORDES REDONDEADOS */
+    border-radius: 60px; /* Tu valor original */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* Efectos originales */
+    filter: grayscale(100%);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.about-img:hover {
+    filter: grayscale(0%);
+    transform: scale(1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.about-title {
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: left; /* Título alineado a la izquierda */
+}
+
+.about-text p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
+}
 
     /* FAQ SECTION - SIN CAJAS */
     .faq-section {
@@ -508,6 +548,12 @@ transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
         padding-top: 60px;
         padding-bottom: 100px;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
+
+    background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('bg_faq.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
+
     }
 
     .faq-container {
@@ -635,6 +681,87 @@ transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
         text-decoration: underline;
     }
 
+/* YEYEYEYE */
+
+/* --- SECCIÓN INDUSTRY CO-SIGN --- */
+/* --- INDUSTRY CO-SIGN: AJUSTE DE TAMAÑO --- */
+.cosign-section {
+    width: 100%;
+    background: #000;
+    padding: 80px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cosign-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px; /* Más espacio entre vídeos para que no se vean pegados */
+    width: 100%;
+    /* 900px es el punto exacto para que coincidan con tus tracks */
+    max-width: 900px; 
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.cosign-item {
+    width: 100%;
+}
+
+.video-player-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9; 
+    background: #111;
+    border-radius: 12px; /* Un poco más de radio para que se vea premium */
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.video-native-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.cosign-info {
+    margin-top: 15px;
+    padding-left: 5px;
+}
+
+.cosign-copy {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 6px;
+}
+
+.play-beat-btn-link {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.play-beat-btn-link:hover {
+    opacity: 1;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .cosign-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+}
     /* ===========================
           MODAL DE CONTACTO
        =========================== */
@@ -867,10 +994,17 @@ transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
             flex-direction: row;
             gap: 60px;
 background: #000000;
+
     /* ESTA ES LA LÍNEA QUE DA ESTRUCTURA */
     border-top: 1px solid rgba(255, 255, 255, 0.05); 
     padding-top: 80px; /* Añadimos un poco más de aire arriba */
     padding-bottom: 80px;
+
+/* bg */
+background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('bg_about.gif') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-attachment: fixed !important;
         }
     }
 
@@ -1023,6 +1157,40 @@ border-radius: 10px;
     transform: translateY(-5px); /* Pequeño salto hacia arriba en lugar de zoom */
 }
 
+/* bajo del lusardi hero */
+
+
+.hero-subtitle {
+    height: 20px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Margin negativo para subirlo. Ajusta el -20px a tu gusto */
+    margin-top: -50px; 
+}
+
+#changing-text {
+    font-size: clamp(10px, 3vw, 14px);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 300;
+    transition: opacity 0s ease;
+}
+
+@media (max-width: 767px) {
+    .hero-title {
+        line-height: 1; /* Le damos un poco más de aire solo en móvil */
+    }
+    .hero-subtitle {
+        margin-top: -20px; /* En móvil el margen negativo debe ser menor para no pisar */
+    }
+    #changing-text {
+        letter-spacing: 2px; /* Menos espacio para que no se salga de la pantalla */
+    }
+}
+
 </style>
 
 <!-- Iconos para el modal -->
@@ -1031,19 +1199,7 @@ border-radius: 10px;
 </head>
 <body>
 
-<!-- ======================================== -->
-<!--         PANTALLA DE CONTRASEÑA           -->
-<!-- ======================================== -->
-<div class="password-screen" id="passwordScreen">
-    <h2 class="password-title">ACCESO EXCLUSIVO</h2>
-    <div class="password-container">
-        <input type="password" class="password-input" id="passwordInput" placeholder="Introduce la contraseña" autocomplete="off">
-        <div class="password-arrow">↲</div>
-    </div>
-    <div class="password-error" id="passwordError">Contraseña incorrecta</div>
-    <div class="password-hint"> <br> pista: habla conmigo</div>
-<a href="#" class="request-access contact-trigger">Solicitar acceso</a>
-</div>
+<audio id="global-audio-element"></audio>
 
 <!-- ======================================== -->
 <!--              HERO — LUSARDI              -->
@@ -1051,6 +1207,12 @@ border-radius: 10px;
 <div class="hero">
     <h1 class="hero-title">Lusardi</h1>
     
+
+<div class="hero-subtitle">
+        <span id="changing-text">MUSIC PRODUCER</span>
+    </div>
+
+
     <nav class="hero-nav">
         <a href="#works">Recent Works</a>
         <a href="#about">About Me</a>
@@ -1059,7 +1221,7 @@ border-radius: 10px;
 </div>
 
 <!-- BOTÓN CONTACTAR FIJO -->
-<button class="contact-btn">Contactar</button>
+<button class="contact-btn">Contactar →</button>
 
 <!-- ======================================== -->
 <!--              MODAL DE CONTACTO           -->
@@ -1100,8 +1262,8 @@ border-radius: 10px;
                 </a>
             </div>
 
-<p style="font-size: 14px; color: #fc0303; margin-bottom: 30px;">
-       <strong>Actualmente solo estoy cogiendo 2 proyectos, excepcionalmente 3 por mes.</strong>
+<p style="font-size: 12px; color: #ececec; margin-bottom: 30px;">
+       Actualmente solo estoy cogiendo 2 proyectos, excepcionalmente 3 por mes.
     </p>
 
         </div>
@@ -1111,119 +1273,121 @@ border-radius: 10px;
 <!-- ======================================== -->
 <!--         YOUR WORKS SECTION (1)           -->
 <!-- ======================================== -->
-<section id="works" class="section works-section">
+<section id="works" class="works-section">
     <div class="section-inner">
+        <h2 class="section-title reveal-title" style="line-height: 0.9; margin-bottom: 40px;">
+            UN AUDIO VALE<br>MAS QUE MIL PALABRAS
+        </h2>
         
-        <h2 class="section-title">Un <strong>AUDIO</strong> vale más que <strong>MIL PALABRAS</strong></h2>
+        <audio id="global-audio-element"></audio>
 
-        <div class="beats-container">
-            <div class="beats-header">
-                <div>Player (Calidad MP3 reducida/optimizada) Para version completa CONTACTAR</div>
-                <div>Descripción breve</div>
-                <div>BPM / Key</div>
-            </div>
-            
-            <!-- Beat 1 -->
-            <div class="beat-row">
-                <media-controller audio>
-                    <audio slot="media" src="Beat1.mp3"></audio>
-                    <media-control-bar>
-                        <media-play-button></media-play-button>
-                        <media-time-display></media-time-display>
-                        <media-time-range></media-time-range>
-                        <media-duration-display></media-duration-display>
-                    </media-control-bar>
-                </media-controller>
-                <div class="beat-title">Beat con sample unico de Music Box</div>
-                <div class="beat-meta">115 BPM | Em</div>
-            </div>
-            
-            <!-- Beat 2 -->
-            <div class="beat-row">
-                <media-controller audio>
-                    <audio slot="media" src="Beat2.mp3"></audio>
-                    <media-control-bar>
-                        <media-play-button></media-play-button>
-                        <media-time-display></media-time-display>
-                        <media-time-range></media-time-range>
-                        <media-duration-display></media-duration-display>
-                    </media-control-bar>
-                </media-controller>
-                <div class="beat-title">Beat con sonido analogico unico distorsionado</div>
-                <div class="beat-meta">126 BPM | F#m</div>
-            </div>
-            
-            <!-- Beat 3 -->
-            <div class="beat-row">
-                <media-controller audio>
-                    <audio slot="media" src="Beat3.mp3"></audio>
-                    <media-control-bar>
-                        <media-play-button></media-play-button>
-                        <media-time-display></media-time-display>
-                        <media-time-range></media-time-range>
-                        <media-duration-display></media-duration-display>
-                    </media-control-bar>
-                </media-controller>
-                <div class="beat-title">Analog synth sample original</div>
-                <div class="beat-meta">126 BPM | G#m</div>
-            </div>
-            
-            <!-- Beat 4 -->
-            <div class="beat-row">
-                <media-controller audio>
-                    <audio slot="media" src="Beat4.wav"></audio>
-                    <media-control-bar>
-                        <media-play-button></media-play-button>
-                        <media-time-display></media-time-display>
-                        <media-time-range></media-time-range>
-                        <media-duration-display></media-duration-display>
-                    </media-control-bar>
-                </media-controller>
-                <div class="beat-title">Soul Sample trap beat</div>
-                <div class="beat-meta">150 BPM | Gm</div>
+        <div class="tracklist">
+            <div class="track-item" id="track-1" onclick="handleTrackClick('track-1', 'audio/Beat1.mp3')">
+                <span class="track-number">01</span>
+                <div class="track-cover">
+                    <img src="image/Beat1.jpg" alt="Cover 1">
+                </div>
+                <span class="track-name">DARK FANTASY, RETRO SOUND, TRAP</span>
+                <span class="track-meta">132 / Dm</span>
+                <span class="track-status">></span>
             </div>
 
-            <!-- Beat 5 -->
-            <div class="beat-row">
-                <media-controller audio>
-                    <audio slot="media" src="Beat5.mp3"></audio>
-                    <media-control-bar>
-                        <media-play-button></media-play-button>
-                        <media-time-display></media-time-display>
-                        <media-time-range></media-time-range>
-                        <media-duration-display></media-duration-display>
-                    </media-control-bar>
-                </media-controller>
-                <div class="beat-title">Analog pop chords con drums percusivos</div>
-                <div class="beat-meta">102 BPM | F#m</div>
+            <div class="track-item" id="track-2" onclick="handleTrackClick('track-2', 'audio/Beat2.mp3')">
+                <span class="track-number">02</span>
+                <div class="track-cover">
+                    <img src="image/Beat2.jpg" alt="Cover 2">
+                </div>
+                <span class="track-name">HIP HOP, JAZZY RNB</span>
+                <span class="track-meta">103 / Em</span>
+                <span class="track-status">></span>
             </div>
 
+            <div class="track-item" id="track-3" onclick="handleTrackClick('track-3', 'audio/Beat3.mp3')">
+                <span class="track-number">03</span>
+                <div class="track-cover">
+                    <img src="image/Beat3.jpg" alt="Cover 3">
+                </div>
+                <span class="track-name">DISTORTED ANALOG SOUNDS, HARD TRAP</span>
+                <span class="track-meta">134 / F#m</span>
+                <span class="track-status">></span>
+            </div>
+
+            <div class="track-item" id="track-4" onclick="handleTrackClick('track-4', 'audio/Beat4.mp3')">
+                <span class="track-number">04</span>
+                <div class="track-cover">
+                    <img src="image/Beat4.jpg" alt="Cover 4">
+                </div>
+                <span class="track-name">BARCELONA AFRO, FUNKY BASS</span>
+                <span class="track-meta">103 / Fm</span>
+                <span class="track-status">></span>
+            </div>
+         
+            <div class="track-item" id="track-5" onclick="handleTrackClick('track-5', 'audio/Beat5.mp3')">
+                <span class="track-number">05</span>
+                <div class="track-cover">
+                    <img src="image/Beat5.jpg" alt="Cover 5">
+                </div>
+                <span class="track-name">2000's TRAP, NYC STYLE</span>
+                <span class="track-meta">137.5 / Dm</span>
+                <span class="track-status">></span>
+            </div>
         </div>
-            <div class="text">
-<br>
-                Cada uno de los beats es totalmente distinto, me enfoco en la <strong>versatilidad</strong> y proyección de emociones al oyente con melodias simples pero con mucha expresión
-            </div>
     </div>
 </section>
 
+<!-- ======================================== --!>
+<section id="co-sign" class="cosign-section">
+    <div class="section-inner" style="max-width: 900px; margin: 0 auto; width: 100%;">
+        
+        <h2 style="font-size: 10px; letter-spacing: 4px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 30px; padding-left: 10px;">
+            Approved by Koboss
+</h2>
+
+        <div class="cosign-grid">
+            <div class="cosign-item">
+                <div class="video-player-wrapper">
+                    <video controls playsinline class="video-native-element">
+                        <source src="video/reaction_afro.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cosign-info">
+                    <p class="cosign-copy">@kobossbeats</p>
+                    <button class="play-beat-btn-link" onclick="handleTrackClick('track-4', 'audio/Beat4.mp3')">PLAY FULL BEAT</button>
+                </div>
+            </div>
+
+            <div class="cosign-item">
+                <div class="video-player-wrapper">
+                    <video controls playsinline class="video-native-element">
+                        <source src="video/reaction_dark.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="cosign-info">
+                    <p class="cosign-copy">@kobossbeats</p>
+                    <button class="play-beat-btn-link" onclick="handleTrackClick('track-1', 'audio/Beat1.mp3')">PLAY FULL BEAT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- ======================================== -->
 <!--            ABOUT ME SECTION (2)          -->
 <!-- ======================================== -->
 <section id="about" class="section about-section">
     <div class="section-inner about-grid">
         <div class="about-image-container">
-            <img src="about_me_hd.png" alt="Lusardi" class="about-img">
+            <img src="lusardi_photo1.png" alt="Lusardi" class="about-img">
         </div>
         
         <div class="intro-content">
-            <h2 class="about-title">Quien soy?</h2>
+            <h2 class="about-title">¿QUIÉN SOY?</h2>
 
             <div class="text">
                 Soy <strong>Lusardi</strong>, productor de Barcelona.
             </div>
 
             <div class="text">
-                Mi rol es simple: no hago música genérica. Me enfoco en crear identidades sonoras; textura, groove, dirección y carácter; para artistas que buscan un sonido propio.
+                Mi rol es simple: no hago música genérica. ¿Porque?, Me enfoco en crear identidades sonoras; textura, groove, dirección y carácter; para artistas que buscan un sonido propio.
             </div>
 
             <div class="text">
@@ -1239,8 +1403,7 @@ border-radius: 10px;
             </div>
 
 <div class="availability-notice" style="margin-top: 30px; font-size: 0.9em; color: #888; border-left: 2px solid #333; padding-left: 15px;">
-    Actualmente seleccionando identidades sonoras para <span id="next-month-display" style="color: #fff; font-weight: bold;">...</span>. 
-    <br>Cuéntame tu visión.
+    Trabajo con un cupo limitado para garantizar la calidad. Cuéntame tu proyecto para ver si encajamos. Reserva tu plaza para <span id="next-month-display" style="color: #fff; font-weight: bold;">...</span>. 
 </div>
 
         </div>
@@ -1343,34 +1506,6 @@ border-radius: 10px;
                     </div>
                 </div>
 
-<div class="faq-item">
-    <div class="faq-question">
-        ¿Qué herramientas y programas utilizas?
-    </div>
-    <div class="faq-answer">
-        <p class="software-intro">Domino el estándar de la industria para llevar proyectos desde la idea inicial hasta el máster final y su identidad visual:</p>
-        
-        <div class="software-grid">
-            <div class="software-icon" title="FL Studio"><img src="logos/fl_studio.png" alt="FL Studio"><span>Composición</span></div>
-            <div class="software-icon" title="Pro Tools"><img src="logos/protools.png" alt="Pro Tools"><span>Mix & Rec</span></div>
-            <div class="software-icon" title="Ableton"><img src="logos/ableton.png" alt="Ableton"><span>Live</span></div>
-            <div class="software-icon" title="Dolby Atmos"><img src="logos/dolby.png" alt="Dolby"><span>Inmersion</span></div>
-            <div class="software-icon" title="Audition"><img src="logos/audition.png" alt="Audition"><span>Post-producción</span></div>
-            
-            <div class="software-icon" title="Premiere"><img src="logos/premiere.png" alt="Premiere"><span>Edición Video</span></div>
-            <div class="software-icon" title="After Effects"><img src="logos/after_effects.png" alt="After Effects"><span>VFX/Motion</span></div>
-            <div class="software-icon" title="Davinci Resolve"><img src="logos/resolve.png" alt="Davinci"><span>Color Grade/Edit</span></div>
-            <div class="software-icon" title="Photoshop"><img src="logos/photoshop.png" alt="Photoshop"><span>Diseño</span></div>
-
-            <div class="software-icon synth-icon" title="Analog Synths">
-                <img src="logos/synth_icon.png" alt="Synths">
-                <span> Hardware Analógico</span>
-            </div>
-        </div>
-        
-        <p class="software-footer">Mi flujo de trabajo integra <strong>Dolby Atmos</strong> para mezclas inmersivas y la suite de Adobe para la dirección creativa visual.</p>
-    </div>
-</div>
             </div>
             
             <div class="faq-footer">
@@ -1382,222 +1517,146 @@ border-radius: 10px;
 </section>
 
 <script>
-// SISTEMA DE CONTRASEÑA
-const passwordScreen = document.getElementById('passwordScreen');
-const passwordInput = document.getElementById('passwordInput');
-const passwordError = document.getElementById('passwordError');
-const body = document.body;
-const correctPassword = "2026";
-
-// Función para verificar la contraseña
-function checkPassword() {
-    const enteredPassword = passwordInput.value.trim();
-    
-    if (enteredPassword === correctPassword) {
-        // Contraseña correcta
-        passwordScreen.style.display = 'none';
-        body.style.display = 'block';
-        passwordError.classList.remove('show');
-        passwordInput.value = '';
-        
-        // Iniciar el parallax después de cargar
-        initParallax();
-    } else {
-        // Contraseña incorrecta
-        passwordError.classList.add('show');
-        passwordInput.value = '';
-        passwordInput.focus();
-    }
-}
-
-// Evento para enviar con Enter
-passwordInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        checkPassword();
-    }
-});
-
-// Enfocar automáticamente en el input al cargar
-window.addEventListener('load', function() {
-    passwordInput.focus();
-});
-
-// PARALLAX SOLO PARA EL TÍTULO LUSARDI
-function initParallax() {
-    let ticking = false;
-    
-    function updateParallax() {
-        const scrolled = window.pageYOffset;
-        const heroTitle = document.querySelector('.hero-title');
-        
-        if (heroTitle) {
-            const offset = scrolled * 1.5;
-            heroTitle.style.backgroundPosition = `center calc(50% + ${offset}px)`;
-        }
-        
-        ticking = false;
-    }
-
-    function onScroll() {
-        if (!ticking) {
-            window.requestAnimationFrame(updateParallax);
-            ticking = true;
-        }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    
-    // Inicializar posición
-    updateParallax();
-}
-
-// MODAL DE CONTACTO
-const contactBtn = document.querySelector('.contact-btn');
+// --- CONFIGURACIÓN GLOBAL ---
 const contactModal = document.getElementById('contactModal');
-const closeContactModal = document.getElementById('closeContactModal');
-const contactTrigger = document.querySelector('.contact-trigger');
-document.querySelectorAll('.contact-trigger').forEach(trigger => {
-    trigger.addEventListener('click', function(e) {
-        e.preventDefault();
-        openContactModal(); // Esta función ya existe en tu código
-    });
-});
 
-// Abrir modal
+// Funciones de control de Modal (Necesarias para los listeners)
 function openContactModal() {
     contactModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
-// Cerrar modal
 function closeContactModalFunc() {
     contactModal.classList.remove('active');
     document.body.style.overflow = 'auto';
 }
 
-// Event listeners para contacto
-contactBtn.addEventListener('click', openContactModal);
-if (contactTrigger) {
-    contactTrigger.addEventListener('click', function(e) {
-        e.preventDefault();
-        openContactModal();
-    });
-}
-
-closeContactModal.addEventListener('click', closeContactModalFunc);
-
-// Cerrar modal al hacer clic fuera
-contactModal.addEventListener('click', (e) => {
-    if (e.target === contactModal) {
-        closeContactModalFunc();
-    }
-});
-
-// Cerrar modal con tecla Escape
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && contactModal.classList.contains('active')) {
-        closeContactModalFunc();
-    }
-});
-
-// FAQ ACCORDION
 document.addEventListener('DOMContentLoaded', () => {
-    // Solo ejecutar esto después de que se haya introducido la contraseña
-    if (body.style.display !== 'block') return;
+    // 1. Inicializar Modal de Contacto
+    const closeBtn = document.getElementById('closeContactModal');
+    const allTriggers = document.querySelectorAll('.contact-btn, .contact-trigger');
+
+    allTriggers.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openContactModal();
+        });
+    });
+
+    closeBtn.addEventListener('click', closeContactModalFunc);
     
+    window.addEventListener('click', (e) => {
+        if (e.target === contactModal) closeContactModalFunc();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeContactModalFunc();
+    });
+
+    // 2. Lógica de FAQ (Acordeón)
     const faqItems = document.querySelectorAll('.faq-item');
-    
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
-        
         question.addEventListener('click', () => {
-            // Cerrar otros items abiertos
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
+            faqItems.forEach(other => {
+                if (other !== item) other.classList.remove('active');
             });
-            
-            // Alternar el item actual
             item.classList.toggle('active');
         });
     });
-    
-    // Smooth scroll para enlaces del menú
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 20,
-                    behavior: 'smooth'
-                });
+
+    // 3. Inicializar funciones visuales
+    initParallax();
+    initTextRotation();
+    updateNextMonth();
+});
+
+// --- FUNCIONES DE APOYO ---
+
+function initParallax() {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.pageYOffset;
+                const heroTitle = document.querySelector('.hero-title');
+                if (heroTitle) {
+                    const offset = scrolled * 0.5; // Ajustado para suavidad
+                    heroTitle.style.backgroundPosition = `center calc(50% + ${offset}px)`;
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+function initTextRotation() {
+    const roles = ["I build sound identities", "Sound designer", "Mix & master", "No type beats", "Creative direction for artists", "For artists who want to stand out", "Your sound, recognizable in 3 seconds"];
+    let currentIndex = 0;
+    const textElement = document.getElementById('changing-text');
+    if (!textElement) return;
+
+    setInterval(() => {
+        textElement.style.opacity = 0;
+        setTimeout(() => {
+            currentIndex = (currentIndex + 1) % roles.length;
+            textElement.innerText = roles[currentIndex];
+            textElement.style.opacity = 1;
+        }, 0);
+    }, 5000);
+}
+
+function updateNextMonth() {
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const now = new Date();
+    const nextMonthIndex = (now.getMonth() + 1) % 12;
+    const display = document.getElementById('next-month-display');
+    if(display) display.innerText = months[nextMonthIndex];
+}
+
+// --- LÓGICA DE AUDIO ---
+const audioElement = document.getElementById('global-audio-element');
+let currentActiveTrackId = null;
+
+function handleTrackClick(trackId, audioFile) {
+    const clickedTrack = document.getElementById(trackId);
+    if (currentActiveTrackId === trackId) {
+        audioElement.paused ? audioElement.play() : audioElement.pause();
+        return;
+    }
+    if (currentActiveTrackId) {
+        const prev = document.getElementById(currentActiveTrackId);
+        prev.classList.remove('active');
+        prev.querySelector('.track-status').innerText = '>';
+    }
+    audioElement.src = audioFile;
+    currentActiveTrackId = trackId;
+    clickedTrack.classList.add('active');
+    audioElement.play().catch(e => console.log("Click play error"));
+}
+
+audioElement.addEventListener('>', () => {
+    if (currentActiveTrackId) document.getElementById(currentActiveTrackId).querySelector('.track-status').innerText = 'PLAYING';
+});
+
+audioElement.addEventListener('pause', () => {
+    if (currentActiveTrackId) document.getElementById(currentActiveTrackId).querySelector('.track-status').innerText = '>';
+});
+
+// --- LÓGICA DE EXCLUSIVIDAD ENTRE VÍDEOS ---
+const cosignVideos = document.querySelectorAll('.video-native-element');
+
+cosignVideos.forEach(selectedVideo => {
+    selectedVideo.addEventListener('>', () => {
+        // Cuando un vídeo empieza, pausamos todos los demás vídeos de la sección
+        cosignVideos.forEach(otherVideo => {
+            if (otherVideo !== selectedVideo) {
+                otherVideo.pause();
             }
         });
     });
 });
-
-// Inicializar el accordion cuando se muestre el cuerpo
-const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        if (mutation.attributeName === 'style' && body.style.display === 'block') {
-            // El cuerpo se ha mostrado, inicializar FAQ
-            const faqItems = document.querySelectorAll('.faq-item');
-            
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                
-                question.addEventListener('click', () => {
-                    // Cerrar otros items abiertos
-                    faqItems.forEach(otherItem => {
-                        if (otherItem !== item && otherItem.classList.contains('active')) {
-                            otherItem.classList.remove('active');
-                        }
-                    });
-                    
-                    // Alternar el item actual
-                    item.classList.toggle('active');
-                });
-            });
-            
-            observer.disconnect();
-        }
-    });
-});
-
-observer.observe(body, { attributes: true });
-
-// Mejorar performance en dispositivos táctiles
-document.addEventListener('touchmove', function(e) {
-    // Permitir scroll normal
-}, { passive: true });
-
-// Evitar rebote en iOS
-document.addEventListener('touchstart', function(e) {
-    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-        e.target.style.webkitTapHighlightColor = 'rgba(255, 255, 255, 0.1)';
-    }
-}, { passive: true });
-
-/* NEXT MONTH */
-function updateNextMonth() {
-    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
-                    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    
-    const now = new Date();
-    // Sumamos 1 al mes actual. Si es diciembre (11), pasará a enero (0) automáticamente.
-    const nextMonthIndex = (now.getMonth() + 1) % 12;
-    
-    document.getElementById('next-month-display').innerText = months[nextMonthIndex];
-}
-
-// Ejecutar cuando cargue la web
-updateNextMonth();
 
 </script>
 </body>
