@@ -1191,6 +1191,70 @@ border-radius: 10px;
     }
 }
 
+/* ===========================
+      AJUSTES MÓVIL (768px)
+   =========================== */
+@media (max-width: 768px) {
+    
+    /* 1. MÁRGENES LATERALES MÁS AMPLIOS */
+    /* Aplicamos un margen de 40px a todas las secciones para que el contenido respire */
+    .section-inner, 
+    .cosign-grid, 
+    .contact-container,
+    .hero-content {
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+    }
+
+    /* 2. ÍNDICE: MÁS GRANDE, CENTRADO Y ABAJO */
+    .hero-content {
+        flex-direction: column; /* Apila el texto y el índice */
+        align-items: center;    /* Centra horizontalmente */
+        text-align: center;
+        justify-content: center;
+        min-height: 70vh;       /* Da altura para que el texto no quede pegado arriba */
+    }
+
+    .index-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;       /* Lo mueve abajo del texto principal */
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .index-link {
+        font-size: 20px;        /* Tamaño más grande para fácil pulsación */
+        margin: 15px 0;         /* Espacio vertical entre enlaces */
+        letter-spacing: 4px;
+    }
+
+    /* 3. FOTO ABOUT ME MÁS PEQUEÑA */
+    .about-container {
+        flex-direction: column; /* Apila foto y texto */
+        gap: 30px;
+    }
+
+    .about-image-container {
+        width: 55% !important;  /* Reducción significativa del tamaño */
+        margin: 0 auto;         /* Centrada */
+    }
+
+    /* 4. AJUSTE DE TEXTOS GENERALES */
+    .about-text, .contact-text {
+        text-align: center;
+        line-height: 1.6;
+        font-size: 14px;
+    }
+
+    /* 5. SECCIÓN APPROVED (VÍDEOS) EN UNA COLUMNA */
+    .cosign-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
 </style>
 
 <!-- Iconos para el modal -->
