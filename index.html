@@ -459,6 +459,70 @@ media-play-button { width: 30px; --media-control-background: transparent; }
 
 
 
+/* --- AJUSTE DE TRACKS PARA MÓVIL --- */
+.track-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 15px; /* Espacio entre número, nombre y botón */
+}
+
+.track-name {
+    flex: 1; /* Esto hace que el nombre ocupe el espacio sobrante sin empujar */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Si el nombre es muy largo, pone "..." en vez de romper la web */
+    font-size: 14px;
+}
+
+/* --- BLOQUE MÓVIL ACTUALIZADO --- */
+@media (max-width: 768px) {
+    
+    /* 1. Márgenes consistentes en toda la web */
+    .section-inner, 
+    .cosign-grid, 
+    .contact-container {
+        padding-left: 30px !important;
+        padding-right: 30px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Índice: Grande, Centrado y Abajo */
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 100px;
+    }
+
+    .index-nav {
+        margin-left: 0 !important;
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .index-link {
+        font-size: 22px; /* Más grande para el pulgar */
+        letter-spacing: 5px;
+    }
+
+    /* 3. Foto About Me: Más pequeña y centrada */
+    .about-image-container {
+        width: 50% !important; /* Tamaño contenido */
+        margin: 0 auto 20px auto !important;
+    }
+
+    /* 4. Lista de Beats: Ajuste de fuente */
+    .track-number { font-size: 12px; opacity: 0.5; min-width: 25px; }
+    .track-status { font-size: 12px; letter-spacing: 1px; min-width: 50px; text-align: right; }
+}
+
+
     /* ===========================
       ABOUT ME SECTION (CORREGIDA)
    =========================== */
