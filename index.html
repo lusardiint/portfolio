@@ -13,6 +13,20 @@
 <script type="module" src="https://cdn.jsdelivr.net/npm/media-chrome@3/+esm"></script>
 
 <style>
+
+/* Bloqueo total de scroll horizontal */
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden !important;
+    position: relative;
+}
+
+/* Aseguramos que la sección del USB no empuje hacia fuera */
+.usb-section {
+    width: 100%;
+    overflow: hidden; /* Corta cualquier cosa que sobresalga lateralmente */
+}
+
     * {
         margin: 0;
         padding: 0;
@@ -146,7 +160,7 @@
     }
 
     .hero-title {
-font-size: clamp(60px, 15vw, 100px) !important;
+font-size: clamp(80px, 20vw, 125px) !important;
         font-weight: 900;
         background-image: url('carpet.png');
         background-size: cover;
@@ -226,7 +240,7 @@ font-size: clamp(60px, 15vw, 100px) !important;
     .hero-nav {
         position: absolute;      /* Para que sea global y no se mueva */
         top: 20px;            /* Lo bajamos un poco para que no pise el INDEX 00 */
-        left: 10px;           /* Pegado a la izquierda */
+        left: 20px;           /* Pegado a la izquierda */
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -330,18 +344,78 @@ font-size: clamp(60px, 15vw, 100px) !important;
     }
 
     .section-title {
-        font-size: 32px;
-        font-weight: 700;
-        margin-bottom: 40px;
-        color: #fff;
-        text-align: center;
-        /* text-transform: uppercase; */
-        letter-spacing: 1px;
+font-size: 34px !important;    /* Lo encogemos */
+    font-weight: 900 !important;   /* Lo hacemos "gordito" */
+    letter-spacing: 3px !important; /* Que respire */
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+text-align: center !important;
+}
+
+   .cosign-title {
+font-size: 34px !important;    /* Lo encogemos */
+    font-weight: 900 !important;   /* Lo hacemos "gordito" */
+    letter-spacing: 3px !important; /* Que respire */
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+text-align: center;
+}
+
+.verified-badge {
+    display: inline-flex;
+    align-items: center;
+}
+
+.verified-badge svg {
+    /* AJUSTE DE TAMAÑO: Súbelo a 28px o 32px si lo quieres aún más grande */
+    width: 28px; 
+    height: 28px;
+    
+    /* El toque final: un ligero brillo para que no se vea plano */
+    filter: drop-shadow(0px 0px 8px rgba(0, 149, 246, 0.4));
+    
+    /* Para que alinees perfectamente con el texto */
+    display: block;
+transform: translateY(2px);
+}
+
+@media (max-width: 768px) {
+    .cosign-title {
+        gap: 8px;
     }
+    .verified-badge svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+   .about-title {
+font-size: 34px !important;    /* Lo encogemos */
+    font-weight: 900 !important;   /* Lo hacemos "gordito" */
+    letter-spacing: 3px !important; /* Que respire */
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+   .faq-title {
+font-size: 34px !important;    /* Lo encogemos */
+    font-weight: 900 !important;   /* Lo hacemos "gordito" */
+    letter-spacing: 3px !important; /* Que respire */
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+text-align: center !important;
+}
+
 
     /* REPRODUCTOR DE BEATS */
-/* --- NUEVA ESTÉTICA EDITORIAL --- */
-/* --- NUEVA ESTÉTICA DE AUDIO EDITORIAL ULTRA-MINIMAL --- */
 .track-item {
     display: grid;
     /* Añadimos 60px después del número para la portada */
@@ -745,40 +819,236 @@ media-play-button { width: 30px; --media-control-background: transparent; }
         text-decoration: underline;
     }
 
-/* YEYEYEYE */
+/* MAILSSSSS */
+
+#usb {
+    background: #000;
+    /* Evita que un menú fijo tape la sección al navegar por anclas */
+    scroll-margin-top: 80px; 
+}
+
+.usb-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    background: #000;
+}
+
+/* Rotación del USB */
+.usb-horizontal {
+    width: 80px; /* Ajusta según necesites */
+    height: auto;
+    transform: rotate(-90deg); /* Lo ponemos horizontal */
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+.usb-horizontal:hover {
+
+}
+
+/* El Box del correo */
+.mail-box-container {
+	border-radius: 16px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+margin-top: -60px;
+}
+
+.mail-form {
+	border-radius: 16px;
+    display: flex;
+    border: 1px solid #1a1a1a;
+    background: #050505;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.mail-form input {
+	border-radius: 16px;
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: #fff;
+    padding: 12px;
+    font-family: 'Telegraf', sans-serif;
+    font-size: 12px;
+    outline: none;
+}
+
+.mail-form button {
+	border-radius: 16px;
+    background: #ff0000; /* Rojo Lusardi */
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    font-family: 'Telegraf', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.mail-form button:hover {
+    background: #fff; /* Rojo Lusardi */
+    color: #ff0000;
+    border: none;
+    padding: 0 20px;
+    font-family: 'Telegraf', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+}
+
+.status-text {
+	border-radius: 16px;
+    font-family: 'Telegraf', sans-serif;
+    font-size: 9px;
+    color: #444;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
 
 /* --- SECCIÓN INDUSTRY CO-SIGN --- */
 /* --- INDUSTRY CO-SIGN: AJUSTE DE TAMAÑO --- */
+
+/* SECCIÓN PRINCIPAL */
 .cosign-section {
     width: 100%;
     background: #000;
-    padding: 80px 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 90px 0;
+    border-top: 1px solid #111;
 }
 
 .cosign-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px; /* Más espacio entre vídeos para que no se vean pegados */
-    width: 100%;
-    /* 900px es el punto exacto para que coincidan con tus tracks */
-    max-width: 900px; 
+    gap: 30px; 
+    max-width: 1100px; 
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.cosign-item {
-    width: 100%;
-}
-
-.video-player-wrapper {
+/* EL CONTENEDOR TIPO HARDWARE */
+.video-player-wrapper.industrial-frame {
+    position: relative;
     width: 100%;
     aspect-ratio: 16 / 9; 
-    background: #111;
-    border-radius: 12px; /* Un poco más de radio para que se vea premium */
+    background: #080808;
+    border-radius: 10px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    /* Borde técnico doble: uno externo y una sombra interna */
+    border: 1px solid #1A1A1A;
+    box-shadow: inset 0px 4px 20px rgba(0,0,0,0.8), 0 30px 60px rgba(0,0,0,0.4);
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), border-color 0.3s ease;
+}
+
+.video-player-wrapper.industrial-frame:hover {
+    border-color: #ff0000; /* Rojo Lusardi */
+    transform: translateY(-5px) scale(1.01);
+}
+
+/* LA CAPA DE RUIDO Y SCANLINES (Sincronizada con el Audio Player) */
+.screen-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.12;
+    background: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%),
+        url(https://upload.wikimedia.org/wikipedia/commons/9/9a/512x512_Dissolve_Noise_Texture.png);
+    background-size: 100% 3px, 150px 150px;
+}
+
+/* VIDEO ELEMENT */
+.video-native-element {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.1) brightness(0.9); /* Look más crudo y menos digital */
+}
+
+/* BARRA DE ESTADO TIPO MONITOR DE ESTUDIO */
+.status-bar {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(13,13,13,0) 0%, rgba(13,13,13,0.95) 100%);
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+}
+
+.status-text {
+    font-family: 'Telegraf', sans-serif;
+    font-size: 9px;
+    color: #555; /* Gris oscuro para que sea sutil */
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+}
+
+.blink-dot {
+    width: 6px;
+    height: 6px;
+    background: #ff0000;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 0 8px #ff0000;
+    animation: blink-rec 0.8s infinite alternate;
+}
+
+@keyframes blink-rec {
+    from { opacity: 1; }
+    to { opacity: 0.2; }
+}
+
+/* INFO DEBAJO DEL VÍDEO */
+
+/* Elimina el degradado negro de fondo de los controles */
+video::-webkit-media-controls-panel {
+    background-image: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Oculta la barra de progreso (la línea de tiempo) si es lo que te molesta */
+video::-webkit-media-controls-timeline {
+    display: none !important;
+}
+
+/* Asegura que el contenedor de los controles sea invisible */
+video::-webkit-media-controls-enclosure {
+    background-color: transparent !important;
+}
+
+.video-player-wrapper.industrial-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; 
+    background: #080808;
+    
+    /* 1. EL RADIO DE CURVATURA */
+    border-radius: 20px; 
+    
+    /* 2. ESTO ES VITAL: Corta las esquinas del video para que sigan el radio */
+    overflow: hidden; 
+    
+    /* Mantenemos el resto igual */
+    border: 1px solid #1A1A1A;
+    box-shadow: inset 0px 4px 20px rgba(0,0,0,0.8), 0 30px 60px rgba(0,0,0,0.4);
+    transition: all 0.4s ease;
+    
+    /* Fix para Safari (a veces se olvida de redondear los bordes en video) */
+    mask-image: radial-gradient(white, black);
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
 }
 
 .video-native-element {
@@ -786,37 +1056,36 @@ media-play-button { width: 30px; --media-control-background: transparent; }
     height: 100%;
     object-fit: cover;
     display: block;
+    
+    /* 3. También se lo ponemos al video por seguridad */
+    border-radius: 20px; 
 }
 
 .cosign-info {
-    margin-top: 15px;
-    padding-left: 5px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 1px solid #ff0000; /* Detalle de marca lateral */
+    padding-left: 12px;
 }
 
 .cosign-copy {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 6px;
-}
-
-.play-beat-btn-link {
-    background: transparent;
-    border: none;
-    color: #fff;
+    font-family: 'Telegraf', sans-serif;
     font-size: 10px;
-    letter-spacing: 1px;
+    font-weight: 900;
     text-transform: uppercase;
-    cursor: pointer;
-    padding: 0;
-    text-decoration: underline;
-    opacity: 0.8;
-    transition: opacity 0.3s;
+    letter-spacing: 3px;
+    color: #fff;
+    margin: 0;
 }
 
-.play-beat-btn-link:hover {
-    opacity: 1;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .cosign-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
 }
 
 /* Responsivo */
@@ -1225,6 +1494,7 @@ border-radius: 10px;
 
 
 .hero-subtitle {
+    letter-spacing: 10px;
     height: 20px;
     z-index: 5;
     display: flex;
@@ -1319,6 +1589,345 @@ border-radius: 10px;
     }
 }
 
+<!-- PLAYER PRO -->
+
+
+
+body{
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 42vh;
+}
+
+img{
+  width:20px;
+  height: 20px;
+}
+
+.music-player{
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 697px;
+  height: 372px;
+  border-radius: 43px;
+  border: 2px solid #1A1A1A;
+  background: linear-gradient(380deg, #1a1a1a 0%, #3C3C3C 100%);
+}
+
+.music-player::before {
+    content: "";
+    z-index: -2;
+    width: 98%;
+    height: 18%;
+    border-radius: 20px;
+    opacity: 0.3;
+    filter: blur(4px);
+    background: linear-gradient(180deg, #727272 0%, rgba(115, 115, 115, 0.00) 100%);
+    position: absolute;
+    bottom: -16%;
+}
+
+
+.texture{
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 40px;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9a/512x512_Dissolve_Noise_Texture.png);
+  background-clip: border-box;
+  mix-blend-mode: multiply;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.mp-inner{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 98%;
+  height: 96%;
+  border-radius: 37px;
+  background: linear-gradient(180deg, #1b1b1b 0%, #212121 11.2%, #3A3A3A 100%);
+}
+
+
+.album-artwork{
+  position: relative;
+  z-index: 2;
+  width: 345px;
+  height: 313px;
+  border-radius: 28px;
+  border: 4px solid #1E1E1E;
+  background-size: 100%;
+  transition: background-image 0.2s ease-in-out; 
+
+}
+
+
+.album-border{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  filter: blur(1.0px);
+}
+
+.album-reflection{
+  position: absolute;
+  width: 30%;
+  height: 100%;
+  opacity: 0.4;
+  transform: translateX(128px) skewX(-30deg);
+  filter: blur(2.4px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.00) 100%);
+}
+
+.albmu-scrn-fx{
+  position: absolute;
+  display:flex;
+  gap: 2px;
+  border-radius: 30px;
+  width: 100%;
+  height: 100%;
+}
+
+
+.scrn-fx-line{
+  width:4px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(2, 2, 2, 0.10) 0%, rgba(2, 2, 2, 0.00) 100%);
+filter: blur(0.5px);
+}
+
+.album-text{
+  position: absolute;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(180deg, rgba(2, 2, 2, 0.0) 0%, rgba(2, 2, 2, 0.90) 100%);
+  bottom: 0;
+  filter: blur(0.6px);
+  opacity: 0.89;
+  border-radius: 0px 0px 24px 24px;
+}
+
+
+
+.album-text h1 {
+  font-size: 28px;
+  margin: 4px 20px;
+  margin-top: 24px;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.50);
+
+}
+
+.album-text p {
+  font-size: 20px;
+  margin: 0px 20px;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.40);
+
+}
+
+.button-controls{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  width: 254px;
+  height: 254px;
+  margin-right: 10px;
+  background: linear-gradient(180deg, #292929 0%, #1F1F1F 100%);
+  border: 4px solid #0D0D0D;
+  border-radius: 50%;
+  perspective: 120em;
+}
+
+.btn-overlay{
+  position: relative;
+  width: 236px;
+  height: 236px;
+  border-radius: 50%;
+  background: linear-gradient(175deg, #1F1F1F 3.94%, #2D2D2D 44.59%, #3D3D3D 81.99%);
+  box-shadow: 0px 4px 7px 1px rgba(255, 255, 255, 0.11) inset;
+  transition: transform 0.1s ease;
+}
+
+.btn-overlay.left{
+    transform: rotateY(-6deg) skew(1deg, -1deg) ;
+     box-shadow: 0px 4px 7px 1px rgba(255, 255, 255, 0.11) inset, 16px 4px 14px 0px rgba(0, 0, 0, 0.05) inset;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.btn-overlay.right{
+    transform: rotateY(6deg) skew(-1deg, 1deg) ;
+    box-shadow: 0px 4px 7px 1px rgba(255, 255, 255, 0.11) inset, -16px 4px 14px 0px rgba(0, 0, 0, 0.05) inset;
+    filter: drop-shadow(0px 4px -4px rgba(0, 0, 0, 0.25));
+}
+
+.btn-overlay.up{
+    transform: rotateX(8deg);
+   box-shadow: 0px 4px 7px 1px rgba(255, 255, 255, 0.09) inset, 0px -4px 14px 0px rgba(0, 0, 0, 0.05) inset;
+    filter: drop-shadow(0px 4px -4px rgba(0, 0, 0, 0.25));
+}
+
+.btn-overlay.down{
+    transform: rotateX(-8deg);
+  box-shadow: 0px 4px 7px 1px rgba(255, 255, 255, 0.1) inset, 0px -14px 14px 0px rgba(0, 0, 0, 0.05) inset;
+    filter: drop-shadow(0px 4px -4px rgba(0, 0, 0, 0.25));
+}
+
+.play-btn-shadow{
+  position: absolute;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.70);
+  filter: blur(1.5px);
+}
+
+.play-btn{
+  cursor: pointer;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  transform:  translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background: linear-gradient(180deg, #292929 0%, #1F1F1F 100%);
+  transition: transform 0.1s ease;
+}
+
+
+
+.play-btn.pressed{
+  
+  transform: translate(-50%, -50%) scale(0.96);
+  transition: transform 0.1s ease;
+  
+}
+
+.play-btn-overlay{
+  
+  position: absolute;
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(189deg, #1F1F1F 6.91%, #2D2D2D 50.27%, #393939 83.66%);
+  box-shadow: 0px 1px 2px 0px rgba(255, 255, 255, 0.12) inset;
+}
+
+.play-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+
+.skip-left{
+  cursor: pointer;
+  position: absolute;
+  top: 52%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+}
+
+.skip-right{
+  cursor: pointer;
+  position: absolute;
+  top: 52%;
+  right: -2%;
+  transform: translate(-50%, -50%);
+}
+
+.vol-up{
+  cursor: pointer;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.vol-down{
+  cursor: pointer;
+  position: absolute;
+  top: 85%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Media Query para Móviles */
+@media (max-width: 768px) {
+    .content {
+        width: 100%;
+        height: auto;      /* Importante para que no ocupe toda la pantalla */
+        min-height: 450px; /* Espacio mínimo para que quepa el player encogido */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;  /* Evita que aparezca scroll lateral */
+    }
+
+    .music-player {
+        /* Reducimos el reproductor al 50% de su tamaño original */
+        transform: scale(0.5); 
+        
+        /* El origen de la transformación debe ser el centro */
+        transform-origin: center center; 
+
+        /* Como 'scale' no cambia el espacio físico que ocupa el div, 
+           usamos márgenes negativos para eliminar el espacio vacío que sobra */
+        margin: -80px 0; 
+        
+        /* Quitamos el ancho fijo para que no fuerce el scroll del body */
+        flex-shrink: 0;
+    }
+}
+
+/* Ajuste extra para móviles muy pequeños (iPhone SE / pantallas de 320px) */
+@media (max-width: 380px) {
+    .music-player {
+        transform: scale(0.42);
+        margin: -110px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        margin-bottom: -40px; /* Tiramos el título un poco hacia abajo en móvil */
+        font-size: 0.6rem;
+    }
+    
+    .music-player {
+        transform: scale(0.5);
+        /* El margen negativo que ya tenías ayudará a que la siguiente sección no se pegue */
+        margin: -60px 0; 
+    }
+}
+
 </style>
 
 <!-- Iconos para el modal -->
@@ -1345,6 +1954,7 @@ border-radius: 10px;
         <a href="#works">Recent Works</a>
         <a href="#about">About Me</a>
         <a href="#faq">FAQ</a>
+        <a href="#usb">¿?</a>
     </nav>
 </div>
 
@@ -1402,73 +2012,396 @@ border-radius: 10px;
 <!--         YOUR WORKS SECTION (1)           -->
 <!-- ======================================== -->
 <section id="works" class="works-section">
-    <div class="section-inner">
-        <h2 class="section-title reveal-title" style="line-height: 0.9; margin-bottom: 40px;">
-            UN AUDIO VALE<br>MAS QUE MIL PALABRAS
-        </h2>
+
+<h2 class="section-title">UN AUDIO DICE MAS QUE MIL PALABRAS</h2>
+
+<div class="content">
+  
+  <div class="music-player">
+     <div class="texture"></div>
+    <div class="mp-inner">
+      <div class="album-artwork">
         
-        <audio id="global-audio-element"></audio>
+         <div class="album-text">
+           <h1 id="song-title"></h1>
+           <p id="artist-name"></p>
+         </div>
+        
+         <div class="albmu-scrn-fx">
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+            <div class="scrn-fx-line"></div>
+         </div>
+         <div class="album-reflection"></div>
+      <div class="album-border">  <svg width="345" height="143" viewBox="0 0 345 143" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M340.505 143H345V28C345 12.536 332.464 2.37738e-05 317 2.25623e-05L29 0C12.9838 -1.25474e-06 1.2684e-05 12.9837 1.11215e-05 29L0 143H4.495L4.49501 33.0273C4.49501 17.0111 17.4788 4.02734 33.495 4.02734L312.505 4.02737C327.969 4.02737 340.505 16.5634 340.505 32.0274V143Z" fill="url(#paint0_linear_1685_2624)" fill-opacity="0.5"/>
+<defs>
+<linearGradient id="paint0_linear_1685_2624" x1="172.5" y1="143" x2="172.5" y2="1.35139e-05" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D9D9D9" stop-opacity="0"/>
+<stop offset="0.786458" stop-color="#D9D9D9"/>
+</linearGradient>
+</defs>
+</svg>
 
-        <div class="tracklist">
-            <div class="track-item" id="track-1" onclick="handleTrackClick('track-1', 'audio/Beat1.mp3')">
-                <span class="track-number">01</span>
-                <div class="track-cover">
-                    <img src="image/Beat1.jpg" alt="Cover 1">
-                </div>
-                <span class="track-name">DARK FANTASY, RETRO SOUND, TRAP</span>
-                <span class="track-meta">132 / Dm</span>
-                <span class="track-status">></span>
-            </div>
+<svg width="345" height="145" viewBox="0 0 345 135" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M3.34951 0H0V114C0 129.464 12.536 142 28 142H316C332.016 142 345 129.016 345 113V0H341.65V110C341.65 126.016 328.667 139 312.65 139H31.3495C15.8856 139 3.34951 126.464 3.34951 111V0Z" fill="url(#paint0_linear_1685_2758)" fill-opacity="0.5"/>
+<defs>
+<linearGradient id="paint0_linear_1685_2758" x1="172.5" y1="0" x2="172.5" y2="149" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="0.786458" stop-color="#0D0D0D"/>
+</linearGradient>
+</defs>
+</svg>
 
-            <div class="track-item" id="track-2" onclick="handleTrackClick('track-2', 'audio/Beat2.mp3')">
-                <span class="track-number">02</span>
-                <div class="track-cover">
-                    <img src="image/Beat2.jpg" alt="Cover 2">
-                </div>
-                <span class="track-name">HIP HOP, JAZZY RNB</span>
-                <span class="track-meta">103 / Em</span>
-                <span class="track-status">></span>
-            </div>
 
-            <div class="track-item" id="track-3" onclick="handleTrackClick('track-3', 'audio/Beat3.mp3')">
-                <span class="track-number">03</span>
-                <div class="track-cover">
-                    <img src="image/Beat3.jpg" alt="Cover 3">
-                </div>
-                <span class="track-name">DISTORTED ANALOG SOUNDS, HARD TRAP</span>
-                <span class="track-meta">134 / F#m</span>
-                <span class="track-status">></span>
-            </div>
 
-            <div class="track-item" id="track-4" onclick="handleTrackClick('track-4', 'audio/Beat4.mp3')">
-                <span class="track-number">04</span>
-                <div class="track-cover">
-                    <img src="image/Beat4.jpg" alt="Cover 4">
-                </div>
-                <span class="track-name">BARCELONA AFRO, FUNKY BASS</span>
-                <span class="track-meta">103 / Fm</span>
-                <span class="track-status">></span>
-            </div>
-         
-            <div class="track-item" id="track-5" onclick="handleTrackClick('track-5', 'audio/Beat5.mp3')">
-                <span class="track-number">05</span>
-                <div class="track-cover">
-                    <img src="image/Beat5.jpg" alt="Cover 5">
-                </div>
-                <span class="track-name">2000's TRAP, NYC STYLE</span>
-                <span class="track-meta">137.5 / Dm</span>
-                <span class="track-status">></span>
-            </div>
         </div>
+      </div>
+      <div class="button-controls">
+        <div class="btn-overlay">
+          <div class="play-btn-shadow"></div>
+            <div class="play-btn">
+               <div class="play-btn-overlay">
+                  <div class="play-icon">
+                    <svg width="48" height="31" viewBox="0 0 48 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_diii_0_1)">
+<path d="M2 25.7434V3.31956C2 1.81294 3.60276 0.847294 4.93472 1.55143L26.5854 12.9969C28.0194 13.7551 28.0019 15.8153 26.5551 16.5489L4.9045 27.5272C3.57407 28.2018 2 27.2351 2 25.7434Z" fill="#232323"/>
+</g>
+<g filter="url(#filter1_diii_0_1)">
+<path d="M40 26V3C40 1.89543 40.8954 1 42 1H44C45.1046 1 46 1.89543 46 3V26C46 27.1046 45.1046 28 44 28H42C40.8954 28 40 27.1046 40 26Z" fill="#232323"/>
+</g>
+<g filter="url(#filter2_diii_0_1)">
+<path d="M30 26V3C30 1.89543 30.8954 1 32 1H34C35.1046 1 36 1.89543 36 3V26C36 27.1046 35.1046 28 34 28H32C30.8954 28 30 27.1046 30 26Z" fill="#232323"/>
+</g>
+<defs>
+<filter id="filter0_diii_0_1" x="0" y="0.316406" width="29.6504" height="30.4297" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_0_1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-2"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.46 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_0_1" result="effect3_innerShadow_0_1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="1" dy="4"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"/>
+<feBlend mode="normal" in2="effect3_innerShadow_0_1" result="effect4_innerShadow_0_1"/>
+</filter>
+<filter id="filter1_diii_0_1" x="38" y="0" width="10" height="31" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_0_1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-2"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.46 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_0_1" result="effect3_innerShadow_0_1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="1" dy="4"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"/>
+<feBlend mode="normal" in2="effect3_innerShadow_0_1" result="effect4_innerShadow_0_1"/>
+</filter>
+<filter id="filter2_diii_0_1" x="28" y="0" width="10" height="31" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_0_1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-2"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.46 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_0_1" result="effect3_innerShadow_0_1"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="1" dy="4"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"/>
+<feBlend mode="normal" in2="effect3_innerShadow_0_1" result="effect4_innerShadow_0_1"/>
+</filter>
+</defs>
+</svg>
+
+                  </div>
+               </div>
+            </div>
+          <div class="skip-left">
+            <svg width="40" height="25" viewBox="0 0 40 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_diii_1685_2650)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7 9.79778L7 3C7 1.89543 6.10457 0.999997 5 0.999997L4 0.999997C2.89543 0.999997 2 1.89543 2 3L2 20C2 21.1046 2.89543 22 4 22L5 22C6.10457 22 7 21.1046 7 20L7 12.8382C7.107 12.9288 7.22633 13.0104 7.35802 13.0809L21.0553 20.4218C22.3876 21.1359 24 20.1706 24 18.659L24 14.4969L35.0553 20.4218C36.3876 21.1359 38 20.1706 38 18.659L38 4.27691C38 2.78036 36.4166 1.81396 35.0856 2.49817L24 8.19687L24 4.27691C24 2.78035 22.4166 1.81396 21.0856 2.49817L7.38839 9.5394C7.24469 9.61327 7.11522 9.70027 7 9.79778Z" fill="url(#paint0_linear_1685_2650)"/>
+</g>
+<defs>
+<filter id="filter0_diii_1685_2650" x="0" y="0" width="40" height="25" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1685_2650"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1685_2650" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_1685_2650"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-2"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.46 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_1685_2650" result="effect3_innerShadow_1685_2650"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="1" dy="4"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"/>
+<feBlend mode="normal" in2="effect3_innerShadow_1685_2650" result="effect4_innerShadow_1685_2650"/>
+</filter>
+<linearGradient id="paint0_linear_1685_2650" x1="20" y1="9" x2="26" y2="29" gradientUnits="userSpaceOnUse">
+<stop stop-color="#282828"/>
+<stop offset="1" stop-color="#1E1D1D"/>
+</linearGradient>
+</defs>
+</svg>
+
+          </div>
+          <div class="skip-right">
+            <svg width="40" height="25" viewBox="0 0 40 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_diii_1685_2646)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M33 13.2022V20C33 21.1046 33.8954 22 35 22H36C37.1046 22 38 21.1046 38 20V3C38 1.89543 37.1046 1 36 1H35C33.8954 1 33 1.89543 33 3V10.1618C32.893 10.0712 32.7737 9.98964 32.642 9.91906L18.9447 2.5782C17.6124 1.86415 16 2.82937 16 4.341V8.50312L4.94475 2.5782C3.61241 1.86415 2 2.82937 2 4.341V18.7231C2 20.2196 3.58339 21.186 4.91438 20.5018L16 14.8031V18.7231C16 20.2196 17.5834 21.186 18.9144 20.5018L32.6116 13.4606C32.7553 13.3867 32.8848 13.2997 33 13.2022Z" fill="#232323"/>
+</g>
+<defs>
+<filter id="filter0_diii_1685_2646" x="0" y="0" width="40" height="25" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.15 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1685_2646"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1685_2646" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_1685_2646"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="-2"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.46 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_1685_2646" result="effect3_innerShadow_1685_2646"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="1" dy="4"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"/>
+<feBlend mode="normal" in2="effect3_innerShadow_1685_2646" result="effect4_innerShadow_1685_2646"/>
+</filter>
+</defs>
+</svg>
+
+          </div>
+          <div class="vol-up">
+            <svg width="32" height="31" viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_dii_1685_2641)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M19 11.5V3C19 1.89543 18.1046 1 17 1H15C13.8954 1 13 1.89543 13 3L13 11.5H4.5C3.39543 11.5 2.5 12.3954 2.5 13.5V15.5C2.5 16.6046 3.39543 17.5 4.5 17.5H13L13 26C13 27.1046 13.8954 28 15 28H17C18.1046 28 19 27.1046 19 26V17.5H27.5C28.6046 17.5 29.5 16.6046 29.5 15.5V13.5C29.5 12.3954 28.6046 11.5 27.5 11.5H19Z" fill="#1C1C1C"/>
+</g>
+<defs>
+<filter id="filter0_dii_1685_2641" x="0.5" y="0" width="31" height="31" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.13 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1685_2641"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1685_2641" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_1685_2641"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="1" dy="4"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_1685_2641" result="effect3_innerShadow_1685_2641"/>
+</filter>
+</defs>
+</svg>
+
+          </div>
+           <div class="vol-down">
+             <svg width="32" height="11" viewBox="0 0 32 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_dii_1685_2644)">
+<path d="M4.5 1.5L27.5 1.5C28.6046 1.5 29.5 2.39543 29.5 3.5L29.5 5.5C29.5 6.60457 28.6046 7.5 27.5 7.5L4.5 7.5C3.39543 7.5 2.5 6.60457 2.5 5.5L2.5 3.5C2.5 2.39543 3.39543 1.5 4.5 1.5Z" fill="#262626"/>
+</g>
+<defs>
+<filter id="filter0_dii_1685_2644" x="0.5" y="0.5" width="31" height="10" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.13 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1685_2644"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1685_2644" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="1.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0"/>
+<feBlend mode="normal" in2="shape" result="effect2_innerShadow_1685_2644"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="1" dy="4"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.26 0"/>
+<feBlend mode="normal" in2="effect2_innerShadow_1685_2644" result="effect3_innerShadow_1685_2644"/>
+</filter>
+</defs>
+</svg>
+
+           </div>
+
+        </div>
+      </div>
+
+      
     </div>
+    
+  </div>  
+  
+
+
+
+<audio id="audioPlayer" src="audio/beat1.mp3"></audio> 
+  
+<audio id="audioPlayer"src="audio/beat2.mp3"></audio>
+
+<audio id="audioPlayer"src="audio/beat3.mp3"></audio>
+
+<audio id="audioPlayer"src="audio/beat4.mp3"></audio>
+
+<audio id="audioPlayer"src="audio/beat5.mp3"></audio>
+
+
 </section>
+
 
 <!-- ======================================== --!>
 <section id="co-sign" class="cosign-section">
     <div class="section-inner" style="max-width: 900px; margin: 0 auto; width: 100%;">
         
-        <h2 style="font-size: 10px; letter-spacing: 4px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 30px; padding-left: 10px;">
-            Approved by Koboss
+<h2 class="cosign-title">
+    Approved by Koboss<span class="verified-badge">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.6 22.5l-1.9-3.2-3.6-.8.3-3.7-2.5-2.7L3.6 9.4l-.3-3.7 3.6-.8 1.9-3.2L12 3.1l3.3-1.4 1.9 3.2 3.6.8-.3 3.7 2.5 2.7-2.7 2.7.3 3.7-3.6.8-1.9 3.2L12 20.9l-3.4 1.6z" fill="#0095f6"/>
+            <path d="M10.1 14.6l-2.6-2.6-1.1 1.1 3.7 3.7 7.2-7.2-1.1-1.1-6.1 6.1z" fill="#fff"/>
+        </svg>
+    </span>
 </h2>
 
         <div class="cosign-grid">
@@ -1480,7 +2413,7 @@ border-radius: 10px;
                 </div>
                 <div class="cosign-info">
                     <p class="cosign-copy">@kobossbeats</p>
-                    <button class="play-beat-btn-link" onclick="handleTrackClick('track-4', 'audio/Beat4.mp3')">PLAY FULL BEAT</button>
+
                 </div>
             </div>
 
@@ -1492,7 +2425,7 @@ border-radius: 10px;
                 </div>
                 <div class="cosign-info">
                     <p class="cosign-copy">@kobossbeats</p>
-                    <button class="play-beat-btn-link" onclick="handleTrackClick('track-1', 'audio/Beat1.mp3')">PLAY FULL BEAT</button>
+
                 </div>
             </div>
         </div>
@@ -1636,12 +2569,31 @@ border-radius: 10px;
 
             </div>
             
+        </div>
+    </div>
+</section>
+
+<section id="usb">
+    <div class="usb-section">
+        <a href="javascript:void(0);" class="usb-container">
+            <img src="image/usb.png" alt="Beats USB" class="usb-horizontal">
+        </a>
+
+        <div class="mail-box-container">
+            <form action="https://formspree.io/f/xojpzykj" method="POST" class="mail-form">
+                <input type="email" name="email" placeholder="DEJA TU CORREO" required>
+                <button type="submit">SEND</button>
+            </form>
+            <p class="status-text">POR TIEMPO LIMITADO</p>
+        </div>
+    </div>
+</section>
+
+<section>
             <div class="faq-footer">
                 ¿Tienes otra pregunta? <a href="#" class="contact-trigger">Contáctame directamente</a>
                 <br>© 2026 lusardi
             </div>
-        </div>
-    </div>
 </section>
 
 <script>
@@ -1785,6 +2737,167 @@ cosignVideos.forEach(selectedVideo => {
         });
     });
 });
+
+
+
+
+<!-- PLAYER PRO --!>
+
+
+const albumArt = [
+  "image/beat1.jpg", 
+  "image/beat2.jpg", 
+  "image/beat3.jpg", 
+  "image/beat4.jpg", 
+  "image/beat5.jpg"
+];
+
+const songInfo = [
+  {"band": "Lusardi", "song": "Idea_@PlayboyCarti"},
+  {"band": "Lusardi", "song": "Concepto_RNB2000s"},
+  {"band": "Lusardi", "song": "1400Alhambra"},
+  {"band": "Lusardi", "song": "laflorida@mdlr"},
+  {"band": "Lusardi", "song": "1billiononmiami"}
+];
+
+const play = document.querySelector('.play-btn')
+const back = document.querySelector('.skip-left')
+const forward = document.querySelector('.skip-right')
+const volUp = document.querySelector('.vol-up')
+const volDown = document.querySelector('.vol-down')
+const controlBtn = document.querySelector('.btn-overlay')
+const artwork = document.querySelector('.album-artwork')
+
+const songTitle = document.querySelector('#song-title')
+const artist = document.querySelector('#artist-name')
+
+const audioPlayer = document.querySelectorAll('#audioPlayer');
+
+
+let songPlaying = 0
+
+
+setSongImg()
+
+function setSongImg() {
+  artwork.style.backgroundImage = `url(${albumArt[songPlaying]})`
+  songTitle.innerText = songInfo[songPlaying].song
+  artist.innerText = songInfo[songPlaying].band
+}
+
+
+
+
+//Play Button
+ play.addEventListener('click', function() {
+   audioPlayer[songPlaying].volume = 0.1;
+    toggleAudio(songPlaying);
+  });
+
+ play.addEventListener("mousedown", function() {
+    play.classList.add('pressed')
+  });
+
+play.addEventListener("mouseup", function() {
+     play.classList.remove('pressed')
+  });
+
+
+//Skip Left (Anterior)
+back.addEventListener('click', () => {
+  if (songPlaying !== 0){
+    songPlaying--
+  } else {
+    // Si está en la primera, salta a la última (la 4)
+    songPlaying = 4 
+  }
+  audioPlayer[songPlaying].volume = 0.1;
+  toggleAudio(songPlaying);
+  setSongImg();
+});
+
+back.addEventListener('mousedown', function() {
+  controlBtn.classList.add('left');
+});
+back.addEventListener('mouseup', function() {
+  controlBtn.classList.remove('left');
+});
+
+//Skip Right (Siguiente)
+forward.addEventListener('click', () => {
+  if (songPlaying !== 4){ // Ahora el límite es 4
+    songPlaying++
+  } else {
+    // Si llega a la última, vuelve a la primera (la 0)
+    songPlaying = 0 
+  }
+  audioPlayer[songPlaying].volume = 0.1;
+  setSongImg();
+  toggleAudio(songPlaying);
+});
+
+forward.addEventListener('mousedown', function() {
+  controlBtn.classList.add('right');
+});
+forward.addEventListener('mouseup', function() {
+  controlBtn.classList.remove('right');
+});
+
+//Volume Up
+
+ volUp.addEventListener('click', (e) => {
+    if (audioPlayer[songPlaying].volume < 1) {
+      audioPlayer[songPlaying].volume += 0.1;
+    }
+  });
+
+volUp.addEventListener('mousedown', function() {
+    controlBtn.classList.add('up')
+  });
+volUp.addEventListener('mouseup', function() {
+  controlBtn.classList.remove('up')
+  });
+
+
+//Volume Down
+
+
+ volDown.addEventListener('click', (e) => {
+    if (audioPlayer[songPlaying].volume > 0.1) {
+      audioPlayer[songPlaying].volume -= 0.1;
+    }
+  });
+
+volDown.addEventListener('mousedown', function() {
+    controlBtn.classList.add('down')
+  });
+
+volDown.addEventListener('mouseup', function() {
+  controlBtn.classList.remove('down')
+  });
+
+
+
+
+let playingAudio = null; // Variable to store the currently playing audio element
+
+function toggleAudio(idx) {
+  if (playingAudio !== null && playingAudio !== audioPlayer[idx]) {
+    playingAudio.pause(); // Pause the currently playing audio if it's different
+  }
+
+  if (audioPlayer[idx].paused) {
+// ESTA ES LA LÍNEA QUE DEBES AÑADIR:
+    audioPlayer[idx].volume = 1;
+
+    audioPlayer[idx].play(); // Play the clicked audio
+    playingAudio = audioPlayer[idx]; // Update the currently playing audio
+  } else {
+    audioPlayer[idx].pause(); // Pause the clicked audio if it's already playing
+    playingAudio = null; // No audio is playing
+  }
+}
+
 
 </script>
 </body>
